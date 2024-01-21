@@ -1,0 +1,103 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+nav.navbar {
+    height: 72px;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
+}
+
+nav.navbar a.navbar-brand > img {
+    height: 32px !important;
+    width: auto;
+}
+
+nav.navbar ul.navbar-nav > a {
+    font-size: 18px;
+}
+
+body > section.login,
+body > section.cadastrar,
+body > section.escrever-mensagem {
+    max-width: 696px;
+}
+
+body#home > section {
+    height: 488px;
+}
+
+body#home > section.hero > div,
+body#home > section.teste-agora > div {
+    max-width: 800px;
+}
+
+body#home > section.hero h1 {
+    font-size: 88px;
+    font-weight: 800;
+}
+
+body#home > section.hero p {
+    font-size: 20px;
+}
+
+body#home > section.teste-agora h2 {
+    font-size: 56px;
+    font-weight: 800;
+}
+
+body#home > section.teste-agora a.btn {
+    font-size: 28px;
+}
+
+body#home > section.sobre > .container > p {
+    font-size: 20px;
+}
+
+body#home > section.sobre .list-group .list-group-item {
+    width: 480px;
+}
+
+body#home > section.sobre .list-group a {
+    width: fit-content;
+}
+
+body#home > section.sobre .list-group img {
+    width: 36px;
+    height: auto;
+}
+
+body#home > section.sobre .list-group p {
+    font-size: 20px;
+}
+
+section.criar-mensagem hr,
+section.datetime-restante-mensagem hr {
+    border-color: #8f8f8f;
+    width: 100%;
+}
+
+section.criar-mensagem a.btn {
+    font-size: 24px;
+}
+
+section.escrever-mensagem div.input-group.date {
+    max-width: 200px;
+}
+
+section.escrever-mensagem textarea#mensagemInputConteudo {
+    min-height: 160px;
+    max-height: 400px;
+}
+
+section.datetime-restante-mensagem .date-restante-mensagem > p {
+    font-size: 48px;
+}
+
+section.datetime-restante-mensagem .time-restante-mensagem {
+    font-size: 72px;
+}
+
