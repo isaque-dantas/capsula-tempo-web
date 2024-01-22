@@ -6,7 +6,7 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 
 @app.route('/')
 @app.route('/index')
-def index():  # put application's code here
+def index():
     return render_template('index.html')
 
 

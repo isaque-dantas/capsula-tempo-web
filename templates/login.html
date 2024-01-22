@@ -1,39 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login do usuário</title>
+{% extends 'base-com-botao-cadastro.html' %}
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-            crossorigin="anonymous">
-    </script>
-
-    <!-- CSS local -->
-    <link rel="stylesheet" href="../static/css/style.css">
-
-    <!-- Fontes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar bg-body-tertiary">
-        <div class="container">
-            <div class="container-fluid d-flex justify-content-between align-items-center">
-                <a href="/" class="navbar-brand"><img src="/static/img/logo.png" alt=""></a>
-                <ul class="navbar-nav d-flex flex-row gap-5">
-                    <a href="/" class="nav-link fw-medium">Home</a>
-                    <a href="/#sobre" class="nav-link fw-medium">Sobre</a>
-                    <a href="/login" class="nav-link fw-medium">Login</a>
-                    <a href="/cadastro" class="btn btn-primary fw-bold px-4">Fazer cadastro</a>
-                </ul>
-            </div>
-        </div>
-    </nav>
+{% block content %}
     <section class="container login pt-5 gap-1">
         <h2 class="text-primary fw-bold">Login</h2>
         <hr class="mb-4">
@@ -43,15 +10,13 @@
                 <input placeholder="Digite seu e-mail" type="email" id="loginInputEmail" class="form-control">
             </div>
             <div>
-                <label for="loginInputPassword" class="form-label">Senha</label>
+                <label for="loginInputPassword" class="form-label fw-medium">Senha</label>
                 <input placeholder="Digite sua senha" type="password" id="loginInputPassword" class="form-control">
             </div>
             <div class="d-flex gap-4 mt-4">
                 <a href="/cadastro" class="btn btn-outline-primary px-3 fw-bold">Criar conta</a>
                 <button type="submit" class="btn btn-primary px-5 fw-bold">Confirmar</button>
-{#                <a href="dashboard-sem-mensagem.html" class="btn btn-primary px-5 fw-bold">Confirmar</a>#}
             </div>
         </form>
     </section>
-</body>
-</html>
+{% endblock %}

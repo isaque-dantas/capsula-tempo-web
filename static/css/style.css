@@ -26,51 +26,51 @@ body > section.escrever-mensagem {
     max-width: 696px;
 }
 
-body#home > section {
+#home > section {
     height: 488px;
 }
 
-body#home > section.hero > div,
-body#home > section.teste-agora > div {
+#home > section.hero > div,
+#home > section.teste-agora > div {
     max-width: 800px;
 }
 
-body#home > section.hero h1 {
+#home > section.hero h1 {
     font-size: 88px;
     font-weight: 800;
 }
 
-body#home > section.hero p {
+#home > section.hero p {
     font-size: 20px;
 }
 
-body#home > section.teste-agora h2 {
+#home > section.teste-agora h2 {
     font-size: 56px;
     font-weight: 800;
 }
 
-body#home > section.teste-agora a.btn {
+#home > section.teste-agora a.btn {
     font-size: 28px;
 }
 
-body#home > section.sobre > .container > p {
+#home > section.sobre > .container > p {
     font-size: 20px;
 }
 
-body#home > section.sobre .list-group .list-group-item {
+#home > section.sobre .list-group .list-group-item {
     width: 480px;
 }
 
-body#home > section.sobre .list-group a {
+#home > section.sobre .list-group a {
     width: fit-content;
 }
 
-body#home > section.sobre .list-group img {
+#home > section.sobre .list-group img {
     width: 36px;
     height: auto;
 }
 
-body#home > section.sobre .list-group p {
+#home > section.sobre .list-group p {
     font-size: 20px;
 }
 
@@ -101,3 +101,18 @@ section.datetime-restante-mensagem .time-restante-mensagem {
     font-size: 72px;
 }
 
+section.editar-mensagem button.btn-outline-primary img {
+    filter: invert(38%) sepia(94%) saturate(4053%) hue-rotate(208deg) brightness(96%) contrast(107%);
+    transition-duration: 0.15s;
+}
+
+section.editar-mensagem button.btn-outline-danger img {
+    filter: invert(40%) sepia(61%) saturate(6456%) hue-rotate(336deg) brightness(90%) contrast(91%);
+    transition-duration: 0.15s;
+}
+
+section.editar-mensagem button.btn:hover img,
+section.editar-mensagem button.btn:active img {
+    filter: invert(99%) sepia(0%) saturate(2%) hue-rotate(263deg) brightness(107%) contrast(100%);
+    transition-duration: 0.15s;
+}
