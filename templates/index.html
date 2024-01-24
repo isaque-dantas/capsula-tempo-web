@@ -1,5 +1,6 @@
-{% extends 'base-com-botao-cadastro.html' %}
+{% extends 'base-com-login.html' %}
 
+{% block title %}Minha cápsula{% endblock %}
 {% block content %}
     <div id="home">
         <section class="container-fluid hero pt-5 gap-1 d-flex justify-content-center align-items-center">
@@ -13,9 +14,9 @@
         <section class="pt-5 gap-1 teste-agora bg-body-tertiary d-flex justify-content-center align-items-center">
             <div class="d-flex justify-content-between">
                 <h2 class="text-primary m-0 me-5">Teste agora.<br>Faça seu<br>cadastro.</h2>
-                <div class="d-flex align-items-center justify-content-center"><a href="/cadastro"
-                                                                                 class="btn btn-primary px-5 py-2 fw-bold">Fazer
-                    cadastro</a></div>
+                <div class="d-flex align-items-center justify-content-center">
+                    <a href="{{ url_for('cadastro') }}" class="btn btn-primary px-5 py-2 fw-bold">Fazer cadastro</a>
+                </div>
             </div>
         </section>
         <section class="pt-5 sobre gap-1" id="sobre">
@@ -26,21 +27,21 @@
                     <li class="list-group-item py-3">
                         <a href="https://github.com/isaque-dantas"
                            class="d-flex align-items-center gap-3 text-body text-decoration-none">
-                            <img src="/static/img/github.svg" alt="">
+                            <img src={{ url_for('static', filename='img/github.svg') }} alt="">
                             <p class="m-0 fw-medium">@isaque-dantas</p>
                         </a>
                     </li>
                     <li class="list-group-item py-3">
                         <a href="mailto:vicisaque413@gmail.com"
                            class="d-flex align-items-center gap-3 text-body text-decoration-none">
-                            <img src="/static/img/mail.svg" alt="">
+                            <img src={{ url_for('static', filename='img/mail.svg') }} alt="">
                             <p class="m-0 fw-medium">vicisaque413@gmail.com</p>
                         </a>
                     </li>
                     <li class="list-group-item py-3">
                         <a href="https://www.instagram.com/vicisaque/"
                            class="d-flex align-items-center gap-3 text-body text-decoration-none">
-                            <img src="/static/img/instagram.svg" alt="">
+                            <img src={{ url_for('static', filename='img/instagram.svg') }} alt="">
                             <p class="m-0 fw-medium">@vicisaque</p>
                         </a>
                     </li>

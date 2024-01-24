@@ -1,14 +1,15 @@
-{% extends 'base-sem-botao-cadastro.html' %}
+{% extends 'base-sem-login.html' %}
 
+{% block title %}Editar mensagem{% endblock %}
 {% block content %}
     <section class="container editar-mensagem py-5">
         <div class="w-50 mx-auto">
             <div class="d-flex gap-4 mb-5">
                 <button class="btn btn-outline-primary px-4 d-flex gap-2 align-items-center">
-                    <img src="/static/img/edit.svg" alt="" class=""><span class="fw-semibold">Editar</span>
+                    <img src={{ url_for('static', filename='img/edit.svg') }} alt="" class=""><span class="fw-semibold">Editar</span>
                 </button>
                 <button class="btn btn-outline-danger px-4 d-flex gap-2 align-items-center">
-                    <img src="/static/img/trash-2.svg" alt=""><span class="fw-semibold">Excluir</span>
+                    <img src={{ url_for('static', filename='img/trash-2.svg') }} alt=""><span class="fw-semibold">Excluir</span>
                 </button>
             </div>
             <h2 class="text-primary fw-bold my-3">Lorem ipsum dolor sit amet consec tetur adipsicing elit.</h2>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Login do usuário</title>
+    <title>{% block title %}{% endblock %}</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -13,7 +13,7 @@
     </script>
 
     <!-- CSS local -->
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
     <!-- Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,18 +21,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar bg-body-tertiary">
-        <div class="container">
-            <div class="container-fluid d-flex justify-content-between align-items-center">
-                <a href="/" class="navbar-brand"><img src="/static/img/logo.png" alt=""></a>
-                <ul class="navbar-nav d-flex flex-row gap-5">
-                    <a href="/" class="nav-link fw-medium">Home</a>
-                    <a href="/#sobre" class="nav-link fw-medium">Sobre</a>
-                    <a href="/login" class="nav-link fw-medium">Login</a>
-                    {% block botao_cadastro_usuario %}{% endblock %}
-                </ul>
-            </div>
+<nav class="navbar bg-body-tertiary">
+    <div class="container">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <a href="{{ url_for('index') }}" class="navbar-brand">
+                <img src={{ url_for('static', filename='img/logo.png') }} alt="">
+            </a>
+            <ul class="navbar-nav d-flex flex-row gap-5">
+                {% block navbar_nav %}{% endblock %}
+            </ul>
         </div>
-    </nav>
-    {% block content %}{% endblock %}
+    </div>
+</nav>
+{% block content %}{% endblock %}
 </body>

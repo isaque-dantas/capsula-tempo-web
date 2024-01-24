@@ -1,26 +1,52 @@
-{% extends 'base-com-botao-cadastro.html' %}
+{% extends 'base-com-login.html' %}
 
+{% block title %}Cadastro{% endblock %}
 {% block content %}
     <section class="container cadastrar pt-5 gap-1">
+        {% include 'flash_messages.html' %}
+
         <h2 class="text-primary fw-bold">Cadastrar</h2>
         <hr class="mb-4">
-        <form action="" class="d-flex flex-column gap-4">
+        <form method="POST" action="/cadastro" class="d-flex flex-column gap-4">
+            {{ form.hidden_tag() }}
             <div>
-                <label for="loginInputNome" class="form-label fw-medium">Nome</label>
-                <input placeholder="Digite seu nome" type="text" id="loginInputNome" class="form-control">
+                {{ form.first_name.label(class="form-label fw-medium") }}
+                {{ form.first_name(class="form-control") }}
             </div>
             <div>
-                <label for="loginInputEmail" class="form-label fw-medium">E-mail</label>
-                <input placeholder="Digite seu e-mail" type="email" id="loginInputEmail" class="form-control">
+                {{ form.last_name.label(class="form-label fw-medium") }}
+                {{ form.last_name(class="form-control") }}
             </div>
             <div>
-                <label for="loginInputPassword" class="form-label">Senha</label>
-                <input placeholder="Digite sua senha" type="password" id="loginInputPassword" class="form-control">
+                {{ form.email.label(class="form-label fw-medium") }}
+                {{ form.email(class="form-control") }}
+            </div>
+            <div>
+                {{ form.password.label(class="form-label fw-medium") }}
+                {{ form.password(class="form-control") }}
             </div>
             <div class="d-flex gap-4 mt-4">
-                <a href="/" class="btn btn-secondary px-3 fw-bold">Cancelar</a>
-                <button type="submit" class="btn btn-primary px-5 fw-bold">Confirmar</button>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary px-3 fw-bold">Cancelar</a>
+                {{ form.submit(class="btn btn-primary px-5 fw-bold") }}
             </div>
+{#            <div>#}
+{#                <label for="loginInputPrimeiroNome" class="form-label fw-medium">Primeiro nome</label>#}
+{#                <input placeholder="Digite seu primeiro nome" type="text" id="loginInputPrimeiroNome"#}
+{#                       name="primeiro_nome" class="form-control">#}
+{#            </div>#}
+{#            <div>#}
+{#                <label for="loginInputSobrenome" class="form-label fw-medium">Sobrenome</label>#}
+{#                <input placeholder="Digite seu sobrenome" type="text" id="loginInputSobrenome" name="sobrenome"#}
+{#                       class="form-control">#}
+{#            </div>#}
+{#            <div>#}
+{#                <label for="loginInputEmail" class="form-label fw-medium">E-mail</label>#}
+{#                <input placeholder="Digite seu e-mail" type="email" id="loginInputEmail" name="email" class="form-control">#}
+{#            </div>#}
+{#            <div>#}
+{#                <label for="loginInputPassword" class="form-label fw-medium">Senha</label>#}
+{#                <input placeholder="Digite sua senha" type="password" id="loginInputPassword" name="senha" class="form-control">#}
+{#            </div>#}
         </form>
     </section>
 {% endblock %}
