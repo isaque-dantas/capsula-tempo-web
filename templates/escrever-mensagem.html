@@ -3,38 +3,31 @@
 {% block title %}Escrever mensagem{% endblock %}
 {% block content %}
     <section class="container escrever-mensagem py-5 gap-1">
+        {% include 'flash_messages.html' %}
+
         <h2 class="text-primary fw-bold">Escreva sua mensagem</h2>
         <hr class="mb-4">
-        <form action="" class="d-flex flex-column gap-4">
+        <form action="/escrever_mensagem" method="POST" class="d-flex flex-column gap-4">
+            {{ form.hidden_tag() }}
             <div>
-                <label for="mensagemInputTitulo" class="form-label fw-medium">Título</label>
-                <input placeholder="Digite o título da mensagem" type="text" id="mensagemInputTitulo"
-                       class="form-control">
+                {{ form.title.label(class="form-label fw-medium") }}
+                {{ form.title(class="form-control") }}
             </div>
             <div>
-                <label for="mensagemInputConteudo" class="form-label fw-medium">Conteúdo</label>
-                <textarea placeholder="Digite o conteúdo da mensagem" id="mensagemInputConteudo"
-                          class="form-control"></textarea>
+                {{ form.content.label(class="form-label fw-medium") }}
+                {{ form.content(class="form-control") }}
             </div>
-            <div class="d-flex flex-column align-items-center gap-3 mt-2">
-                <label for="datePicker" class="fw-medium">Escolha o momento em que a mensagem será liberada</label>
-                <div class="input-group date" id="datePicker">
-                    <input type="text" class="form-control">
-                    <div class="input-group-text d-flex justify-content-center align-items-center px-2">
-                        <img src="{{ url_for('static', filename='calendar.svg') }}" alt="">
-                    </div>
-                </div>
-                <div class="input-group date" id="timePicker">
-                    <input type="text" class="form-control timePicker">
-                    <div class="input-group-text d-flex justify-content-center align-items-center px-2">
-                        <img src="{{ url_for('static', filename='clock.svg') }}" alt="">
-                    </div>
-                </div>
+            <div class="d-flex flex-column align-items-center">
+                {{ form.date_can_open.label(class="form-label fw-medium") }}
+                {{ form.date_can_open(class="form-control w-75") }}
             </div>
-            <div class="d-flex gap-4 mt-4 justify-content-center">
-                <a href="{{ url_for('dashboard') }} class="btn btn-secondary px-3 fw-bold">Cancelar</a>
-                <button type="submit" class="btn btn-primary px-5 fw-bold">Confirmar</button>
+            <div class="d-flex flex-column align-items-center">
+                {{ form.time_can_open.label(class="form-label fw-medium") }}
+                {{ form.time_can_open(class="form-control w-75") }}
             </div>
+            <div class="d-flex gap-4 mt-4">
+                <a href="{{ url_for('dashboard') }}" class="btn btn-secondary px-3 fw-bold">Cancelar</a>
+                {{ form.submit(class="btn btn-primary px-5 fw-bold") }}
         </form>
     </section>
 {% endblock %}

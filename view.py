@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, request, redirect, flash
 
-from forms import LoginForm, RegisterForm
+from forms import LoginForm, RegisterForm, CapsuleMessageForm
 from model import User
 
 # class Name:
@@ -30,7 +30,8 @@ def login():
         if User.is_password_valid(login_form):
             return redirect('/dashboard')
         else:
-            flash('Email e/ou senha inválidos', category='danger')
+            flash('Email e/ou senha inválidos',
+                  category='danger')
 
     return render_template('login.html', form=login_form)
 
@@ -61,7 +62,13 @@ def dashboard():
 
 @app.route('/escrever_mensagem')
 def escrever_mensagem():
-    return render_template('escrever-mensagem.html')
+    capsule_message_form = CapsuleMessageForm()
+
+    if capsule_message_form.validate_on_submit():
+        pass
+
+    return render_template('escrever-mensagem.html',
+                           form=capsule_message_form)
 
 
 @app.route('/editar_mensagem')
