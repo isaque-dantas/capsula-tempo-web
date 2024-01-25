@@ -1,16 +1,20 @@
 {% extends 'base-sem-login.html' %}
 
+{# TODO: renomear e refatorar arquivo 'editar-mensagem' para conter um
+         form apenas com a alteração do título da mensagem #}
+
 {% block title %}Editar mensagem{% endblock %}
 {% block content %}
     <section class="container editar-mensagem py-5">
         <div class="w-50 mx-auto">
             <div class="d-flex gap-4 mb-5">
+                {# TODO: mover botões para 'dashboard-mensagem.html' #}
                 <button class="btn btn-outline-primary px-4 d-flex gap-2 align-items-center">
-                    <img src={{ url_for('static', filename='img/edit.svg') }} alt="" class="">
+                    <img src={{ url_for('static', filename='img/edit.svg') }} alt="" class="button-logo">
                     <span class="fw-semibold">Editar</span>
                 </button>
                 <button class="btn btn-outline-danger px-4 d-flex gap-2 align-items-center">
-                    <img src={{ url_for('static', filename='img/trash-2.svg') }} alt="">
+                    <img src={{ url_for('static', filename='img/trash-2.svg') }} alt="" class="button-logo">
                     <span class="fw-semibold">Excluir</span>
                 </button>
             </div>

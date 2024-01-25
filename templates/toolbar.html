@@ -1,0 +1,10 @@
+{% block toolbar %}
+    <div class="toolbar shadow d-flex justify-content-between px-4 py-3 bg-body-tertiary rounded-3 align-items-center">
+        <h4 class="toolbar-message m-0">
+            {% block toolbar_message %}{% endblock %}
+        </h4>
+        <div class="toolbar-buttons d-flex gap-3">
+            {% block toolbar_buttons %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

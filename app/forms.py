@@ -2,10 +2,15 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, EmailField, PasswordField, DateField, TimeField, TextAreaField
 from wtforms.validators import DataRequired, Length
 
-from model import User, CapsuleMessage
+from app.model import User, CapsuleMessage
 
 
 class RegisterForm(FlaskForm):
+    username = StringField('Nome de usuário',
+                           validators=[
+                               DataRequired(),
+                               Length(2, User.MAX_LENGTH['username'])
+                           ])
     first_name = StringField('Primeiro nome',
                              validators=[
                                  DataRequired(),
@@ -61,7 +66,23 @@ class CapsuleMessageForm(FlaskForm):
                                 DataRequired()
                             ])
 
-    date_can_open = DateField('O momento em que a mensagem será liberada')
-    time_can_open = TimeField('O momento em que a mensagem será liberada')
+    date_can_open = DateField('O dia e o horário em que a mensagem será liberada',
+                              validators=[
+                                  DataRequired()
+                              ])
 
+    time_can_open = TimeField(
+        validators=[
+            DataRequired()
+        ])
+
+    submit = SubmitField('Confirmar')
+
+
+class EditCapsuleMessageTitleForm(FlaskForm):
+    title = StringField('Insira o novo título',
+                        validators=[
+                            DataRequired(),
+                            Length(max=CapsuleMessage.MAX_LENGTH['title'])
+                        ])
     submit = SubmitField('Confirmar')

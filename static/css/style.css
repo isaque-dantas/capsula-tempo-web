@@ -74,7 +74,6 @@ body > section.escrever-mensagem {
     font-size: 20px;
 }
 
-section.criar-mensagem hr,
 section.datetime-restante-mensagem hr {
     border-color: #8f8f8f;
     width: 100%;
@@ -101,18 +100,61 @@ section.datetime-restante-mensagem .time-restante-mensagem {
     font-size: 72px;
 }
 
-section.editar-mensagem button.btn-outline-primary img {
+.btn-outline-primary .button-logo {
     filter: invert(38%) sepia(94%) saturate(4053%) hue-rotate(208deg) brightness(96%) contrast(107%);
     transition-duration: 0.15s;
 }
 
-section.editar-mensagem button.btn-outline-danger img {
+.btn-outline-danger .button-logo {
     filter: invert(40%) sepia(61%) saturate(6456%) hue-rotate(336deg) brightness(90%) contrast(91%);
     transition-duration: 0.15s;
 }
 
-section.editar-mensagem button.btn:hover img,
-section.editar-mensagem button.btn:active img {
+.btn:hover .button-logo,
+.btn:active .button-logo {
     filter: invert(99%) sepia(0%) saturate(2%) hue-rotate(263deg) brightness(107%) contrast(100%);
     transition-duration: 0.15s;
+}
+
+section.mensagens .card-title {
+    /*font-size: 18px;*/
+}
+
+section.mensagens .table td {
+    font-size: 14px;
+}
+
+section.mensagem .toolbar .button-logo {
+    width: 24px;
+    height: auto;
+}
+
+section.mensagem .message-title {
+    width: fit-content;
+}
+
+section.mensagem .message-title .edit-title {
+    width: 40px;
+    height: 40px;
+}
+
+section.mensagem .message-title .edit-title {
+    width: 40px;
+    height: 40px;
+}
+
+section.mensagem .tempo-restante {
+    margin-top: 96px;
+}
+
+section.mensagem .tempo-restante .tempo-restante-ano-mes-dia {
+    font-size: 44px;
+}
+
+section.mensagem .tempo-restante .tempo-restante-hora-minuto-segundo {
+    font-size: 52px;
+}
+
+section.mensagem .conteudo-mensagem {
+    font-size: 18px;
 }

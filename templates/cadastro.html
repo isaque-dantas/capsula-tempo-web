@@ -5,10 +5,14 @@
     <section class="container cadastrar pt-5 gap-1">
         {% include 'flash_messages.html' %}
 
-        <h2 class="text-primary fw-bold">Cadastrar</h2>
+        <h2 class="text-primary fw-bold">Fazer cadastro</h2>
         <hr class="mb-4">
         <form method="POST" action="/cadastro" class="d-flex flex-column gap-4">
             {{ form.hidden_tag() }}
+            <div>
+                {{ form.username.label(class="form-label fw-medium") }}
+                {{ form.username(class="form-control") }}
+            </div>
             <div>
                 {{ form.first_name.label(class="form-label fw-medium") }}
                 {{ form.first_name(class="form-control") }}
