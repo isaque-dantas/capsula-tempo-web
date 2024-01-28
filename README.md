@@ -1,7 +1,8 @@
-# Cápsula do tempo web ⏳🕸
+# Timegram 
 
-📚 Este é o site que te permite agendar várias mensagens para posterior leitura, de forma parecida com que uma cápsula do tempo faz.  
-⭐ Relembre o momento atual de sua vida a partir da escrita e reconstrua a sua trajetória desde então.  
+Agende 'timegrams' para seus amigos e receba os que eles enviarem.  
+
+⭐ Acesse agora: [https://timegram.com](https://timegram.com)  
 
 ## Tecnologias utilizadas
 
