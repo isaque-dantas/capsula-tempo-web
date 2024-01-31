@@ -1,4 +1,4 @@
-{% extends 'base-com-login.html' %}
+{% extends 'base-with-login.html' %}
 
 {% block title %} Login {% endblock %}
 {% block content %}
@@ -19,7 +19,7 @@
             </div>
             </div>
             <div class="d-flex gap-4 mt-4">
-                <a href="{{ url_for('cadastro') }}" class="btn btn-outline-primary px-3 fw-bold">Fazer cadastro</a>
+                <a href="{{ url_for('register') }}" class="btn btn-outline-primary px-3 fw-bold">Fazer cadastro</a>
                 {{ form.submit(class="btn btn-primary px-5 fw-bold") }}
             </div>
         </form>

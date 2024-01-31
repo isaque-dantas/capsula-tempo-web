@@ -1,11 +1,11 @@
-{% extends 'base-sem-login.html' %}
+{% extends 'base-without-login.html' %}
 
 {% block title %}Dashboard{% endblock %}
 {% block content %}
     <section class="container mensagens pt-5 d-flex flex-column gap-5">
         <div class="toolbar d-flex shadow justify-content-between px-4 py-3 bg-body-tertiary rounded-3 align-items-center">
             <h4 class="m-0">Olá, {{ first_name }}</h4>
-            <a href="{{ url_for('escrever_mensagem') }}" class="btn btn-primary py-2 px-4 d-flex gap-2">
+            <a href="{{ url_for('register_timegram') }}" class="btn btn-primary py-2 px-4 d-flex gap-2">
                 <img src="{{ url_for('static', filename='img/plus.svg') }}" alt="">
                 <h5 class="fw-semibold m-0">Escrever nova mensagem</h5>
             </a>
@@ -13,16 +13,16 @@
 
         {% include 'flash_messages.html' %}
 
-        {% if capsule_messages %}
-            <div class="cards row row-gap-4">
-                {% for i, capsule_message in enumerate(capsule_messages) %}
+        {% if timegrams %}
+            <div class="cards row row-gap-4 mb-5">
+                {% for i, timegram in enumerate(timegrams) %}
                     <div class="col-3">
-                        <a href="{{ url_for('mensagem', capsule_message_id=capsule_message.id) }}"
+                        <a href="{{ url_for('access_timegram', timegram_id=timegram.id) }}"
                            class="card text-decoration-none shadow-sm">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <h5 class="card-title text-primary fw-semibold mb-3">
-                                        {{ capsule_message.title }}
+                                        {{ timegram.title }}
                                     </h5>
                                     <figure>
                                         <img src="{{ url_for('static', filename='img/info.svg') }}" class="img-fluid"
@@ -33,11 +33,11 @@
                                 <table class="table">
                                     <tr>
                                         <td>Criação</td>
-                                        <td>{{ capsule_message.datetime_creation }}</td>
+                                        <td>{{ timegram.datetime_creation }}</td>
                                     </tr>
                                     <tr>
                                         <td>Abertura</td>
-                                        <td>{{ capsule_message.datetime_can_open }}</td>
+                                        <td>{{ timegram.datetime_can_open }}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -48,14 +48,13 @@
         {% else %}
             <div class="criar-mensagem d-flex flex-column align-items-center mt-5">
                 <hr class="w-100 border border-tertiary">
-                <h5 class="text-secondary m-0 text-center w-50 mt-5 fw-normal">Você ainda não escreveu nenhuma
-                    mensagem</h5>
+                <h5 class="text-secondary m-0 text-center w-50 mt-5 fw-normal">Não há nenhuma mensagem registrada</h5>
             </div>
         {% endif %}
     </section>
     <section class="container">
 
-        {#    {% for capsule_message in capsule_messages %}#}
+        {#    {% for timegram in timegrams %}#}
         {#    {% endfor %} #}
     </section>
 {% endblock %}

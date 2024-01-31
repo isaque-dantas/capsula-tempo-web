@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, EmailField, PasswordField, DateField, TimeField, TextAreaField
 from wtforms.validators import DataRequired, Length
 
-from app.model import User, CapsuleMessage
+from app.model import User, Timegram
 
 
 class RegisterForm(FlaskForm):
@@ -54,11 +54,13 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Confirmar')
 
 
-class CapsuleMessageForm(FlaskForm):
+# TODO: validar que data e hora são um momento posterior ao atual em TimegramForm
+
+class TimegramForm(FlaskForm):
     title = StringField('Título',
                         validators=[
                             DataRequired(),
-                            Length(max=CapsuleMessage.MAX_LENGTH['title'])
+                            Length(max=Timegram.MAX_LENGTH['title'])
                         ])
 
     content = TextAreaField('Conteúdo',
@@ -79,10 +81,11 @@ class CapsuleMessageForm(FlaskForm):
     submit = SubmitField('Confirmar')
 
 
-class EditCapsuleMessageTitleForm(FlaskForm):
+class TimegramTitleForm(FlaskForm):
     title = StringField('Insira o novo título',
                         validators=[
                             DataRequired(),
-                            Length(max=CapsuleMessage.MAX_LENGTH['title'])
+                            Length(max=Timegram.MAX_LENGTH['title'])
                         ])
+
     submit = SubmitField('Confirmar')

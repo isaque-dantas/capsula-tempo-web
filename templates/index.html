@@ -1,55 +1,260 @@
-{% extends 'base-com-login.html' %}
+{% extends 'base-with-login.html' %}
 
 {% block title %}Minha cápsula{% endblock %}
 {% block content %}
     <div id="home">
-        <section class="container-fluid hero pt-5 gap-1 d-flex flex-column justify-content-center align-items-center">
-            <div class="w-100">
-                {% include 'flash_messages.html' %}
-            </div>
-
-            <div class="w-50 d-flex justify-content-between align-items-center">
-                <h1 class="text-primary m-0 me-5">Minha cápsula</h1>
-                <p class="m-0">Escreva uma mensagem para você mesmo ver no futuro. Fale sobre seus anseios, desejos e
-                    pretensões. Se tiver alguma meta como comprar um imóvel, fazer uma graduação, insira. Se lembre do
-                    agora, amanhã.</p>
-            </div>
-        </section>
-        <section class="pt-5 gap-1 teste-agora bg-body-tertiary d-flex justify-content-center align-items-center">
-            <div class="d-flex justify-content-between">
-                <h2 class="text-primary m-0 me-5">Teste agora.<br>Faça seu<br>cadastro.</h2>
-                <div class="d-flex align-items-center justify-content-center">
-                    <a href="{{ url_for('cadastro') }}" class="btn btn-primary px-5 py-2 fw-bold">Fazer cadastro</a>
+        <section class="hero pt-5 d-flex align-content-center">
+            <div class="container d-flex align-content-center">
+                <div class="row align-items-center">
+                    <div class="col-xxl-4 col-xl-5 offset-xl-1 col-md-6 offset-md-0 col-10 offset-1 d-flex flex-column mb-md-4 mt-5">
+                        <h1 class="text-primary m-0 mb-4 fw-semibold display-6">Agende mensagens rapidamente com o
+                            <em class="timegram">Timegram</em>.</h1>
+                        <p class="m-0 mb-md-5 mb-3">Envie <strong
+                                class="text-primary fw-semibold timegram">Timegrams</strong>
+                            para seus amigos lerem somente quando você quiser.</p>
+                        <div class="d-flex flex-wrap align-items-center gap-4 mt-4">
+                            <a class="btn btn-outline-primary px-4 py-2 d-flex gap-3 align-items-center
+                               justify-content-center" href="{{ url_for('register') }}">
+                                <span class="fw-semibold fs-5">Fazer cadastro</span>
+                                <img src="{{ url_for('static', filename='img/chevron-right.svg') }}" alt=""
+                                     class="button-logo">
+                            </a>
+                            <a href="{{ url_for('login') }}"
+                               class="login-link all-small-caps fs-5 fw-medium link-offset-1">Login</a>
+                        </div>
+                    </div>
+                    <figure class="col-xxl-5 col-xl-4 offset-lg-1 col-lg-5 col-md-6 offset-md-0 col-10 offset-1">
+                        <img src="{{ url_for('static', filename='img/networked-people.png') }}" alt=""
+                             class="img-fluid d-none d-md-inline">
+                        <img src="{{ url_for('static', filename='img/networked-people-md.png') }}" alt=""
+                             class="img-fluid d-inline d-md-none mt-5">
+                    </figure>
                 </div>
             </div>
         </section>
-        <section class="pt-5 sobre gap-1" id="sobre">
+
+        <section class="what-is bg-body-tertiary">
             <div class="container">
-                <h2 class="text-primary fw-bold">Sobre</h2>
-                <p class="mt-4">Este é um projeto desenvolvido por Isaque Dantas, em Natal / RN, Brasil.</p>
-                <ul class="list-group mt-5 ms-5">
-                    <li class="list-group-item py-3">
-                        <a href="https://github.com/isaque-dantas"
-                           class="d-flex align-items-center gap-3 text-body text-decoration-none">
-                            <img src={{ url_for('static', filename='img/github.svg') }} alt="">
-                            <p class="m-0 fw-medium">@isaque-dantas</p>
-                        </a>
-                    </li>
-                    <li class="list-group-item py-3">
-                        <a href="mailto:vicisaque413@gmail.com"
-                           class="d-flex align-items-center gap-3 text-body text-decoration-none">
-                            <img src={{ url_for('static', filename='img/mail.svg') }} alt="">
-                            <p class="m-0 fw-medium">vicisaque413@gmail.com</p>
-                        </a>
-                    </li>
-                    <li class="list-group-item py-3">
-                        <a href="https://www.instagram.com/vicisaque/"
-                           class="d-flex align-items-center gap-3 text-body text-decoration-none">
-                            <img src={{ url_for('static', filename='img/instagram.svg') }} alt="">
-                            <p class="m-0 fw-medium">@vicisaque</p>
-                        </a>
-                    </li>
-                </ul>
+                <h2 class="text-primary fw-medium fs-1">O que é o <em class="timegram">Timegram?</em></h2>
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class="col-12 col-lg-7">
+                        <p class="m-0 mb-4 fs-4">Timegram é uma plataforma de troca de mensagens, os <em
+                                class="timegram">Timegrams</em>.</p>
+                        <p class="m-0 mb-4 fs-4">Eles são enviados <em class="text-primary fw-medium fst-normal">instantaneamente</em>,
+                            mas sua abertura só
+                            é permitida no momento agendado por quem os fez.</p>
+                        <p class="m-0 mb-5 fs-4">A vantagem disso é que é possível ver
+                            <em class="text-primary fw-medium fst-normal">quais mensagens já enviaram para você</em>,
+                            mesmo que ainda não seja possível ler seu conteúdo.</p>
+                        <div class="rounded-3 text-primary border border-primary py-2 px-4 d-flex gap-4 justify-content-center">
+                            <img src="{{ url_for('static', filename='img/info.svg') }}" alt="">
+                            <p class="m-0 fw-medium fs-5 lh-sm w-75">As mensagens podem ser editadas antes do momento de
+                                abertura</p>
+                        </div>
+                    </div>
+                    <figure class="col-6 col-md-5 col-lg-4 justify-content-center mt-5 mt-xl-0 justify-content-lg-end
+                                   align-items-center d-lg-none d-flex offset-1">
+                        <img src="{{ url_for('static', filename='img/girl-1.png') }}" alt="" class="img-fluid">
+                    </figure>
+                    <figure class="col-3 col-lg-4 justify-content-center mt-5 mt-lg-0 justify-content-lg-end align-items-center
+                                   d-lg-flex d-none offset-1">
+                        <img src="{{ url_for('static', filename='img/girl-1-xl.png') }}" alt="" class="img-fluid">
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section class="what-can-do">
+            <div class="container">
+                <h2 class="text-primary fw-medium fs-1 mb-5">O que você pode fazer no <em
+                        class="timegram">Timegram?</em>
+                </h2>
+                <figure class="mb-5 overflow-x-hidden"><img src="{{ url_for('static', filename='img/waves-2.svg') }}"
+                                                            alt=""></figure>
+                <div class="row row-gap-4 justify-content-center align-items-center">
+                    <div class="col-xl-3 col-md-6 col-sm-8 col-10">
+                        <article class="timegram-function d-flex justify-content-center align-items-center rounded-3">
+                            <p class="m-0 text-center fs-4">Criar e agendar
+                                <em class="timegram">Timegrams</em> para outras pessoas.
+                            </p>
+                        </article>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-sm-8 col-10">
+                        <article class="timegram-function d-flex justify-content-center align-items-center rounded-3">
+                            <p class="m-0 text-center fs-4">Formar equipes para enviar
+                                <em class="timegram">Timegrams</em> mais rápido.
+                            </p>
+                        </article>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-sm-8 col-10">
+                        <article class="timegram-function d-flex justify-content-center align-items-center rounded-3">
+                            <p class="m-0 text-center fs-4">Receber
+                                <em class="timegram">Timegrams</em> de amigos, colegas e familiares.
+                            </p>
+                        </article>
+                    </div>
+
+                    <div class="col-md-6 col-xl-3 col-6 d-flex justify-content-center align-content-center">
+                        <figure class="col-12 col-md-8 col-lg-6 col-xl-8 d-flex justify-content-center align-content-center">
+                            <img src="{{ url_for('static', filename='img/girl-2.png') }}" alt="" class="img-fluid">
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="why bg-body-tertiary">
+            <div class="container">
+                <h2 class="text-primary fw-medium fs-1">Por que o <em class="timegram">Timegram?</em></h2>
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class="accordion col-md-8 col-xl-6" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button text-primary fw-medium fs-5" type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true"
+                                        aria-controls="collapseOne">
+                                    Interface otimizada
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body fs-5">
+                                    A disposição dos elementos sempre intenta facilitar seu uso, sem que você perca
+                                    tempo procurando onde executar essa ou aquela função.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button text-primary fw-medium fs-5 collapsed" type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo" aria-expanded="false"
+                                        aria-controls="collapseTwo">
+                                    Praticidade
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body fs-5">
+                                    O cadastro é simples, e a verificação do e-mail pode ser feita posteriormente.
+                                    Basta chegar e usar.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button text-primary fw-medium fs-5 collapsed" type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                    Segurança
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body fs-5">
+                                    A senha e as informações da mensagem são criptografadas automaticamente pelo
+                                    site, sem intervenção de terceiros. Seus dados estão seguros e bem-guardados.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <figure class="d-flex align-items-center justify-content-center mt-5 mt-md-0 col-2 d-xl-inline d-none offset-1">
+                        <img src="{{ url_for('static', filename='img/waves.svg') }}" class="img-fluid" alt=""></figure>
+                    <figure class="d-flex align-items-center justify-content-center mt-5 mt-md-0 col-6 col-md-3 col-xl-2 offset-md-1">
+                        <img src="{{ url_for('static', filename='img/boy-1.png') }}" class="img-fluid" alt=""></figure>
+                </div>
+            </div>
+        </section>
+
+        <section class="be-part-of">
+            <div class="container">
+                <div class="row justify-content-center justify-content-md-start justify-content-xl-center align-items-center">
+                    <div class="col-12 offset-xl-1 col-md-8 col-lg-6 col-xl-6">
+                        <h2 class="text-primary fw-medium mb-4 display-4">Faça parte do
+                            <em class="timegram fw-bold">Timegram</em>. Agora.
+                        </h2>
+                        <p class="fs-4 mt-3 mb-5 mw-md-50">
+                            Se una à comunidade do Timegram, e compartilhe experiências incríveis com outras pessoas.
+                        </p>
+                        <div class="d-flex flex-wrap align-items-center gap-4 mt-4">
+                            <a class="btn btn-outline-primary px-4 py-2 d-flex gap-3 align-items-center
+                               justify-content-center" href="{{ url_for('register') }}">
+                                <span class="fw-semibold fs-5">Fazer cadastro</span>
+                                <img src="{{ url_for('static', filename='img/chevron-right.svg') }}" alt="" class="button-logo">
+                            </a>
+                            <a href="{{ url_for('login') }}"
+                               class="login-link all-small-caps fs-5 fw-medium link-offset-1">Login</a>
+                        </div>
+{#                        <div class="d-flex align-items-center gap-5 mt-4">#}
+{#                            <a href="{{ url_for('register') }}" class="btn btn-primary px-5 fw-bold fs-4">#}
+{#                                Fazer cadastro#}
+{#                            </a>#}
+{#                            <a href="{{ url_for('login') }}" class="login-link all-small-caps">Login</a>#}
+{#                        </div>#}
+                    </div>
+                    <figure class="col-6 mt-5 mb-0 mt-md-0 col-md-3 offset-md-1 d-flex d-lg-none justify-content-center">
+                        <img src="{{ url_for('static', filename='img/boy-2.png') }}" alt="" class=" img-fluid">
+                    </figure>
+                    <figure class="col-6 col-xl-4 mb-0 col-lg-5 col-md-3 offset-md-1 mt-5 mt-md-0 d-none d-lg-flex justify-content-center">
+                        <img src="{{ url_for('static', filename='img/boy-2-xl.png') }}" alt="" class=" img-fluid">
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section class="about bg-body-tertiary">
+            <div class="container">
+                <h2 class="text-primary fw-bold fs-1 mb-5" id="about">Sobre o autor</h2>
+                <div class="row d-flex justify-items-center">
+                    <div class="col-12 col-md-3 col-lg-3 offset-lg-1">
+                        <figure>
+                            <img src="{{ url_for('static', filename='img/author-profile-picture.png') }}"
+                                 alt="" class="img-fluid d-none d-md-inline">
+                            <img src="{{ url_for('static', filename='img/author-profile-picture-rectangle.png') }}"
+                                 alt="" class="img-fluid d-inline d-md-none rounded-3 mb-4">
+                        </figure>
+                    </div>
+                    <div class="col-12 col-md-9 col-lg-7">
+                        <div>
+                            <h3 class="text-primary fw-semibold fs-2">Isaque Dantas</h3>
+                            <p class="m-0 fs-5">Desenvolvedor full-stack em formação. Atualmente, faz o ensino médio com
+                                técnico integrado na área de desenvolvimento de software. Domina Python com os
+                                frameworks Flask e PySide6 e tem experiência em JavaScript e C++. Também gosta de um bom
+                                cafézinho com teologia e ciência.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-10 offset-lg-1 mt-4">
+                        <div class="row d-flex justify-content-center justify-content-lg-between">
+                            <div class="col-auto">
+                                <a href="https://github.com/isaque-dantas" target="_blank"
+                                   class="d-flex align-items-center gap-2 text-body text-decoration-none">
+                                    <img src="{{ url_for('static', filename='img/github.svg') }}" alt=""
+                                         class="social-media-logo">
+                                    <p class="m-0 fw-medium text-body fs-5 d-none d-lg-inline">@isaque-dantas</p>
+                                </a>
+                            </div>
+                            <div class="col-auto">
+                                <a href="https://www.instagram.com/vicisaque/" target="_blank"
+                                   class="d-flex align-items-center gap-2 text-body text-decoration-none">
+                                    <img src="{{ url_for('static', filename='img/instagram.svg') }}" alt=""
+                                         class="social-media-logo">
+                                    <p class="m-0 fw-medium text-body fs-5 d-none d-lg-inline">@vicisaque</p>
+                                </a>
+                            </div>
+                            <div class="col-auto">
+                                <a href="mailto: vicisaque413@gmail.com" target="_blank"
+                                   class="d-flex align-items-center gap-2 text-body text-decoration-none">
+                                    <img src="{{ url_for('static', filename='img/mail.svg') }}" alt=""
+                                         class="social-media-logo">
+                                    <p class="m-0 fw-medium text-body fs-5 d-none d-lg-inline">
+                                        vicisaque413@gmail.com</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>

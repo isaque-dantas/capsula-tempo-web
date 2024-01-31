@@ -1,23 +1,64 @@
-body {
-    font-family: 'Montserrat', sans-serif;
+::selection {
+    background-color: #0D6EFD;
+    color: var(--bs-light);
 }
+
 
 * {
     box-sizing: border-box;
 }
 
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
 nav.navbar {
-    height: 72px;
+    padding: 8px 0 8px 0;
     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
 }
 
 nav.navbar a.navbar-brand > img {
-    height: 32px !important;
+    height: 56px !important;
     width: auto;
 }
 
-nav.navbar ul.navbar-nav > a {
-    font-size: 18px;
+nav.navbar ul.navbar-nav a {
+    font-size: 20px;
+}
+
+@media (min-width: 992px) {
+    nav.navbar ul.navbar-nav a {
+        font-size: 18px;
+    }
+}
+
+.timegram {
+    font-family: 'Montserrat Alternates', sans-serif;
+    color: var(--bs-primary) !important;
+    font-weight: 600 !important;
+    font-style: normal;
+}
+
+em.timegram::after {
+    width: 26px;
+    height: 24px;
+
+    background-image: url("../img/timegram-effect.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    content: "";
+}
+
+h2 > em.timegram {
+    border-bottom: 4px solid #FDCA40;
+    position: relative;
+}
+
+h2 > em.timegram::after {
+    position: absolute;
+    right: -16px;
+    top: -8px;
 }
 
 body > section.login,
@@ -27,51 +68,86 @@ body > section.escrever-mensagem {
 }
 
 #home > section {
-    height: 488px;
+    min-height: 600px;
+    padding: 72px 0 72px 0;
 }
 
-#home > section.hero > div,
-#home > section.teste-agora > div {
-    max-width: 800px;
+#home > section > .container > h2.text-primary {
+    margin-bottom: 56px;
 }
 
-#home > section.hero h1 {
-    font-size: 88px;
-    font-weight: 800;
+#home > section.hero .login-link {
+
 }
 
 #home > section.hero p {
     font-size: 20px;
 }
 
-#home > section.teste-agora h2 {
-    font-size: 56px;
-    font-weight: 800;
+#home > section.hero a.btn.btn-outline-primary {
+    max-width: 264px;
 }
 
-#home > section.teste-agora a.btn {
-    font-size: 28px;
-}
-
-#home > section.sobre > .container > p {
-    font-size: 20px;
-}
-
-#home > section.sobre .list-group .list-group-item {
-    width: 480px;
-}
-
-#home > section.sobre .list-group a {
-    width: fit-content;
-}
-
-#home > section.sobre .list-group img {
-    width: 36px;
+#home > section.hero a.btn.btn-outline-primary > img {
+    width: 8px;
     height: auto;
 }
 
-#home > section.sobre .list-group p {
-    font-size: 20px;
+#home > section.what-is .timegram-info {
+    max-width: 680px;
+}
+
+#home > section.what-can-do .timegram-function {
+    padding: 48px 24px;
+    border: 4px dashed #FDCA40;
+}
+
+#home > section.why .accordion {
+    /*min-width: 544px;*/
+}
+
+#home > section.why .accordion {
+    --bs-accordion-border-width: 2px;
+    --bs-accordion-border-color: #FDCA40;
+    --bs-accordion-active-bg: #f6faff;
+}
+
+@media (min-width: 1200px) {
+    #home > section.be-part-of h2 {
+        max-width: 496px;
+    }
+}
+
+.all-small-caps {
+    font-variant: all-small-caps;
+}
+
+#home > section.be-part-of .login-link {
+    font-size: 28px;
+}
+
+#home > section.be-part-of .timegram::after {
+    right: -14px;
+    top: 0;
+}
+
+@media (min-width: 992px) {
+    #home > section.be-part-of .timegram::after {
+        right: -14px;
+        top: 6px;
+    }
+}
+
+#home > section.about .social-media-logo {
+    width: 48px;
+    height: auto;
+}
+
+@media (min-width: 992px) {
+    #home > section.about .social-media-logo {
+        width: 32px;
+        height: auto;
+    }
 }
 
 section.datetime-restante-mensagem hr {

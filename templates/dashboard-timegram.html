@@ -1,4 +1,4 @@
-{% extends 'base-sem-login.html' %}
+{% extends 'base-without-login.html' %}
 
 {% block title %}Dashboard{% endblock %}
 {% block content %}
@@ -7,12 +7,12 @@
             <div class="d-flex gap-2 mb-3 descricao-rota">
                 <a href="{{ url_for('dashboard') }}">Dashboard</a>
                 <span class="text-primary">></span>
-                <a href="{{ url_for('mensagem', capsule_message_id=capsule_message.id) }}">Mensagem</a>
+                <a href="{{ url_for('access_timegram', timegram_id=timegram.id) }}">Mensagem</a>
             </div>
             <div class="toolbar d-flex justify-content-between align-items-center
                         px-4 py-3 bg-body-tertiary rounded-3 shadow">
-                <h5 class="m-0">Mensagem #{{ capsule_message.id }}</h5>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#excludeMessage{{ capsule_message.id }}"
+                <h5 class="m-0">Mensagem #{{ number_of_timegram }}</h5>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#excludeMessage{{ timegram.id }}"
                         class="btn btn-outline-danger border-2 py-2 px-3 d-flex gap-2 align-items-center">
                     <img src="{{ url_for('static', filename='img/trash-2.svg') }}" alt="" class="button-logo">
                     <h5 class="fw-semibold m-0">Excluir</h5>
@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="excludeMessage{{ capsule_message.id }}" tabindex="-1"
+        <div class="modal fade" id="excludeMessage{{ timegram.id }}" tabindex="-1"
              aria-labelledby="excludeMessage" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -29,12 +29,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Realmente deseja excluir a mensagem com o título <strong>'{{ capsule_message.title }}'</strong>?
+                        Realmente deseja excluir a mensagem com o título <strong>'{{ timegram.title }}'</strong>?
                     </div>
                     <div class="modal-footer gap-1">
                         <button type="button" class="fw-bold btn btn-outline-primary" data-bs-dismiss="modal">Cancelar
                         </button>
-                        <a href="{{ url_for('excluir_mensagem', capsule_message_id=capsule_message.id) }}"
+                        <a href="{{ url_for('delete_timegram', timegram_id=timegram.id) }}"
                            class="btn btn-outline-danger px-3 d-flex gap-2 align-items-center">
                             <img style="width: 20px; height: auto"
                                  src="{{ url_for('static', filename='img/trash-2.svg') }}" alt="" class="button-logo">
@@ -47,14 +47,12 @@
 
         {% include 'flash_messages.html' %}
 
-{#        href="{{ url_for('editar_titulo_mensagem', capsule_message_id=capsule_message.id) }}"#}
-
         <div class="d-flex flex-column gap-3 message-title mb-3">
             <div class="d-flex gap-3 align-items-center">
-                <h2 class="text-primary fw-bold m-0">{{ capsule_message.title }}</h2>
+                <h2 class="text-primary fw-bold m-0">{{ timegram.title }}</h2>
                 <div>
                     <button type="button" data-bs-toggle="modal"
-                            data-bs-target="#editMessageTitle{{ capsule_message.id }}"
+                            data-bs-target="#editMessageTitle{{ timegram.id }}"
                             class="edit-title btn btn-outline-primary d-flex justify-content-center align-items-center">
                         <img src="{{ url_for('static', filename='img/edit.svg') }}" alt="" class="button-logo">
                     </button>
@@ -63,9 +61,9 @@
             <hr class="border-tertiary m-0">
         </div>
 
-        <div class="modal fade" id="editMessageTitle{{ capsule_message.id }}" tabindex="-1"
+        <div class="modal fade" id="editMessageTitle{{ timegram.id }}" tabindex="-1"
              aria-labelledby="editMessage" aria-hidden="true">
-            <form action="{{ url_for('mensagem', capsule_message_id=capsule_message.id) }}"
+            <form action="{{ url_for('access_timegram', timegram_id=timegram.id) }}"
                   method="POST">
                 {{ form.hidden_tag() }}
                 <div class="modal-dialog">
@@ -76,7 +74,7 @@
                         </div>
                         <div class="modal-body py-3">
                             {{ form.title.label(class="form-label fw-medium") }}
-                            {{ form.title(class="form-control") }}
+                            {{ form.title(class="form-control", value=timegram.title, placeholder="Insira o novo título da mensagem") }}
                         </div>
                         <div class="modal-footer gap-1">
                             <button type="button" class="fw-bold btn btn-secondary" data-bs-dismiss="modal">
@@ -92,19 +90,19 @@
         <div class="d-flex gap-4">
             <div class="d-flex gap-2 align-items-center">
                 <img src="{{ url_for('static', filename='img/calendar.svg') }}" alt="">
-                <span class="text-primary fs-5">{{ capsule_message.datetime_creation }}</span>
+                <span class="text-primary fs-5">{{ formatted_datetime_creation['formatted_date'] }}</span>
             </div>
             <div class="d-flex gap-2 align-items-center">
                 <img src="{{ url_for('static', filename='img/clock.svg') }}" alt="">
-                <span class="text-primary fs-5">17:54</span>
+                <span class="text-primary fs-5">{{ formatted_datetime_creation['formatted_time'] }}</span>
             </div>
         </div>
 
-        {% if usuario_pode_ler_a_mensagem %}
-            <p class="conteudo-mensagem mt-4">{{ capsule_message.content }}</p>
+        {% if user_already_can_read_timegram %}
+            <p class="conteudo-mensagem mt-4">{{ timegram.content }}</p>
         {% else %}
             <div class="tempo-restante d-flex flex-column gap-4 align-self-center">
-                <p class="m-0 fs-5 text-center">O acesso à mensagem será liberado em</p>
+                <p class="m-0 fs-5 text-center">O acesso ao timegram será liberado em</p>
                 <div class="d-flex flex-column align-items-center">
                     <div class="tempo-restante-ano-mes-dia d-flex gap-4 align-items-center">
                         <p class="m-0 text-primary fw-bold">1 ano</p>

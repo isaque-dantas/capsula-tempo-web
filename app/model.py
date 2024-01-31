@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+import datetime
 
 from flask import flash
 from flask_sqlalchemy import SQLAlchemy
@@ -28,7 +28,7 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(MAX_LENGTH['first_name']), nullable=False)
     last_name = db.Column(db.String(MAX_LENGTH['last_name']), nullable=False)
     password_hash = db.Column(db.String(MAX_LENGTH['password_hash']), nullable=False)
-    capsule_messages = db.relationship('CapsuleMessage', backref='user')
+    timegrams = db.relationship('Timegram', backref='user')
 
     @property
     def password(self):
@@ -103,6 +103,10 @@ class User(db.Model, UserMixin):
         return User.get_by_email(email) is not None
 
     @staticmethod
+    def get_by_id(user_id: int):
+        return User.query.filter_by(id=user_id).first()
+
+    @staticmethod
     def get_by_email(email):
         return User.query.filter_by(email=email).first()
 
@@ -118,39 +122,52 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password_hash, password)
 
     def already_registered_any_message(self) -> bool:
-        return self.get_capsule_messages() is not None
+        return self.get_timegrams() is not None
 
-    def get_capsule_messages(self) -> list:
-        return CapsuleMessage.query.filter_by(user_id=self.id).all()
+    def get_timegrams(self) -> list:
+        return Timegram.query.filter_by(user_id=self.id).all()
 
-    def has_capsule_message_id(self, capsule_message_id: int) -> bool:
-        capsule_message = CapsuleMessage.query.get_or_404(capsule_message_id)
-        if capsule_message is not None:
-            capsule_message_user_id = capsule_message.user_id
-            return capsule_message_user_id == self.id
+    def has_timegram_id(self, timegram_id: int) -> bool:
+        timegram = Timegram.query.get_or_404(timegram_id)
+        if timegram is not None:
+            timegram_user_id = timegram.user_id
+            return timegram_user_id == self.id
         else:
             return False
 
     @staticmethod
-    def can_read_capsule_message(capsule_message_id: int) -> bool:
-        capsule_message = CapsuleMessage.get_by_id(capsule_message_id)
-        now = datetime.utcnow()
+    def already_can_read_timegram(timegram_id: int) -> bool:
+        timegram = Timegram.get_by_id(timegram_id)
+        now = datetime.datetime.utcnow()
 
-        return now >= capsule_message.datetime_can_open
+        return now >= timegram.datetime_can_open
 
     @staticmethod
-    def delete_capsule_message(capsule_message_id: int):
-        capsule_message = CapsuleMessage.query.get(capsule_message_id)
-        db.session.delete(capsule_message)
+    def delete_timegram(timegram_id: int):
+        timegram = Timegram.get_by_id(timegram_id)
+        db.session.delete(timegram)
         db.session.commit()
 
+    def get_number_of_timegram(self, timegram_id: int) -> int:
+        timegrams_ids = self.get_timegrams_ids()
+        index_of_timegram = timegrams_ids.index(timegram_id)
+        number_of_timegram = index_of_timegram + 1
+        return number_of_timegram
 
-#     TODO: implementar método que consiga enumerar a 'capsule_message' atual baseado na contagem das que foram
-#           criadas pelo mesmo usuário (ordenando por id), sem usar o id delas (do contrário, por ex se o usuário
-#           tiver três mensagens, uma delas poderá ter 'id' igual a 20)
+    def get_timegrams_ids(self) -> list:
+        timegrams_ids_list_of_tuples = \
+            Timegram.query.with_entities(Timegram.id).filter_by(
+                user_id=self.id
+            ).all()
+
+        timegrams_ids_list = []
+        for timegram_id in timegrams_ids_list_of_tuples:
+            timegrams_ids_list.append(*timegram_id)
+
+        return timegrams_ids_list
 
 
-class CapsuleMessage(db.Model):
+class Timegram(db.Model):
     MAX_LENGTH = {
         'title': 70
     }
@@ -158,51 +175,100 @@ class CapsuleMessage(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(MAX_LENGTH['title']), nullable=False)
     content = db.Column(db.Text(), nullable=False)
-    datetime_creation = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
+    datetime_creation = db.Column(db.DateTime(), nullable=False, default=datetime.datetime.utcnow)
     datetime_can_open = db.Column(db.DateTime(), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     @staticmethod
     def register(form, current_user):
-        # flash(str_date_can_open, 'info')
-        # flash(str_time_can_open, 'info')
-
-        datetime_can_open = CapsuleMessage.convert_form_datetime_to_datetime(
+        datetime_can_open = Timegram.convert_form_datetime_to_datetime(
             form.date_can_open.data,
             form.time_can_open.data
         )
-        datetime_can_open_utc = CapsuleMessage.convert_datetime_to_utc(datetime_can_open)
-
-        capsule_message = CapsuleMessage(title=form.title.data,
-                                         content=form.content.data,
-                                         datetime_can_open=datetime_can_open_utc,
-                                         user_id=current_user.id)
-        db.session.add(capsule_message)
+        datetime_can_open_utc = Timegram.convert_datetime_to_utc_datetime(datetime_can_open)
+        timegram = Timegram(title=form.title.data,
+                            content=form.content.data,
+                            datetime_can_open=datetime_can_open_utc,
+                            user_id=current_user.id)
+        db.session.add(timegram)
         db.session.commit()
 
-        flash('A mensagem foi registrada com sucesso.', 'success')
+        flash('O Timegram foi registrada com sucesso.', 'success')
 
     @staticmethod
-    def convert_form_datetime_to_datetime(date, time) -> datetime:
-        str_datetime = f'{date} {time}'
-        return datetime.strptime(str_datetime, '%Y-%m-%d %H:%M:%S')
-
-    @staticmethod
-    def convert_datetime_to_utc(dt: datetime) -> datetime:
-        return dt.astimezone(timezone.utc)
-
-    @staticmethod
-    def get_by_id(capsule_message_id: int):
-        return CapsuleMessage.query.filter_by(id=capsule_message_id).first()
+    def get_by_id(timegram_id: int):
+        return Timegram.query.filter_by(id=timegram_id).first()
 
     def update_title(self, new_title: str):
         self.title = new_title
         db.session.commit()
 
-#     TODO: implementar método que converta um objeto utc_datetime para datetime na zona atual
+    @staticmethod
+    def convert_form_datetime_to_datetime(date, time) -> datetime.datetime:
+        str_datetime = f'{date} {time}'
+        return datetime.datetime.strptime(str_datetime, '%Y-%m-%d %H:%M:%S')
 
-#     TODO: implementar método que converta um objeto datetime para string, segundo o padrão brasileiro,
-#           com opção de escolher entre 'date' ou 'time' (mudar a string de formatação para fazer isso)
+    @property
+    def datetime_creation_local_timezone(self) -> datetime.datetime:
+        return self.convert_utc_datetime_to_datetime(self.datetime_creation)
+
+    @datetime_creation_local_timezone.setter
+    def datetime_creation_local_timezone(self, value: datetime.datetime):
+        self.datetime_creation = self.convert_datetime_to_utc_datetime(value)
+
+    @property
+    def datetime_can_open_local_timezone(self) -> datetime.datetime:
+        return self.convert_utc_datetime_to_datetime(self.datetime_can_open)
+
+    @datetime_can_open_local_timezone.setter
+    def datetime_can_open_local_timezone(self, value: datetime.datetime):
+        self.datetime_can_open = self.convert_datetime_to_utc_datetime(value)
+
+    @staticmethod
+    def convert_datetime_to_utc_datetime(dt: datetime.datetime) -> datetime.datetime:
+        return dt.astimezone(datetime.timezone.utc)
+
+    @staticmethod
+    def convert_utc_datetime_to_datetime(dt: datetime.datetime) -> datetime.datetime:
+        converted_datetime = dt + dt.astimezone().tzinfo.utcoffset(dt)
+        return converted_datetime
+
+    def get_formatted_datetime_creation(self):
+        print(self.datetime_creation_local_timezone)
+        return self.get_formatted_datetime(self.datetime_creation_local_timezone)
+
+    @staticmethod
+    def get_formatted_datetime(dt: datetime.datetime) -> dict:
+        date_and_time = Timegram.convert_datetime_to_date_and_time(dt)
+        date = date_and_time['date']
+        time = date_and_time['time']
+
+        formatted_date = Timegram.get_formatted_date(date)
+        formatted_time = Timegram.get_formatted_time(time)
+
+        return {
+            'formatted_date': formatted_date,
+            'formatted_time': formatted_time
+        }
+
+    @staticmethod
+    def convert_datetime_to_date_and_time(dt: datetime.datetime) -> dict:
+        date = datetime.date(year=dt.year, month=dt.month, day=dt.day)
+        time = datetime.time(hour=dt.hour, minute=dt.minute, second=dt.second)
+
+        return {
+            'date': date,
+            'time': time
+        }
+
+    @staticmethod
+    def get_formatted_date(dt: datetime.date) -> str:
+        return dt.strftime('%d/%m/%Y')
+
+    @staticmethod
+    def get_formatted_time(time: datetime.time) -> str:
+        return time.strftime('%H:%M')
+
 
 # if __name__ == '__main__':
 #     with app.app_context():

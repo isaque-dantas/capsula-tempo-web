@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block image_logo_src %}
+    {{ url_for('static', filename='img/logo-com-nome.png') }}
+{% endblock %}
+
 {% block navbar_nav %}
     <a href="{{ url_for('index') }}" class="nav-link fw-medium">Home</a>
     <a href="{{ url_for('dashboard') }}" class="nav-link fw-medium">Dashboard</a>

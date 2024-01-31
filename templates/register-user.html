@@ -1,4 +1,4 @@
-{% extends 'base-com-login.html' %}
+{% extends 'base-with-login.html' %}
 
 {% block title %}Cadastro{% endblock %}
 {% block content %}
@@ -7,7 +7,7 @@
 
         <h2 class="text-primary fw-bold">Fazer cadastro</h2>
         <hr class="mb-4">
-        <form method="POST" action="/cadastro" class="d-flex flex-column gap-4">
+        <form method="POST" action="/register" class="d-flex flex-column gap-4">
             {{ form.hidden_tag() }}
             <div>
                 {{ form.username.label(class="form-label fw-medium") }}

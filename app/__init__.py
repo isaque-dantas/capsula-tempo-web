@@ -5,7 +5,7 @@ from app.secret_keys import FLASK_SECRET_KEY, MYSQL_USER_PASSWORD
 app = Flask(__name__, static_folder='../static', template_folder='../templates')
 app.config['SECRET_KEY'] = FLASK_SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = \
-    f'mysql+pymysql://capsula_tempo_web_pycharm:{MYSQL_USER_PASSWORD}@localhost/capsula_tempo_web'
+    f'mysql+pymysql://pycharm_timegram:{MYSQL_USER_PASSWORD}@localhost/timegram_db'
 
 login_manager = LoginManager()
 login_manager.init_app(app)
