@@ -157,7 +157,12 @@ def delete_timegram(timegram_id: int):
         current_user.delete_timegram(timegram_id)
         return redirect(url_for('dashboard'))
     else:
-        return (
-            render_template('http_403_forbidden.html'),
-            werkzeug.exceptions.Forbidden().code
-        )
+        abort(403)
+
+
+@app.route('/timegram_datetime_can_open/<int:timegram_id>')
+@app.route('/timegram_datetime_can_open/<int:timegram_id>/')
+def timegram_datetime_can_open(timegram_id: int):
+    timegram = Timegram.get_by_id(timegram_id)
+
+    return timegram.get_datetime_can_open_dict()

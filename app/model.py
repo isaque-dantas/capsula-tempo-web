@@ -269,6 +269,15 @@ class Timegram(db.Model):
     def get_formatted_time(time: datetime.time) -> str:
         return time.strftime('%H:%M')
 
+    def get_datetime_can_open_dict(self) -> dict:
+        return {
+            'second': self.datetime_can_open.second,
+            'minute': self.datetime_can_open.minute,
+            'hour': self.datetime_can_open.hour,
+            'day': self.datetime_can_open.day,
+            'month': self.datetime_can_open.month,
+            'year': self.datetime_can_open.year,
+        }
 
 # if __name__ == '__main__':
 #     with app.app_context():

@@ -105,16 +105,18 @@
                 <p class="m-0 fs-5 text-center">O acesso ao timegram será liberado em</p>
                 <div class="d-flex flex-column align-items-center">
                     <div class="tempo-restante-ano-mes-dia d-flex gap-4 align-items-center">
-                        <p class="m-0 text-primary fw-bold">1 ano</p>
-                        <p class="m-0 text-primary fw-bold">2 meses</p>
-                        <p class="m-0 text-primary fw-bold">5 dias</p>
+                        <p class="m-0 text-primary fw-bold"><span id="years-left">1</span> <span id="years-left-label">ano</span></p>
+                        <p class="m-0 text-primary fw-bold"><span id="months-left">2</span> <span id="months-left-label">meses</span></p>
+                        <p class="m-0 text-primary fw-bold"><span id="days-left">5</span> <span id="days-left-label">dias</span></p>
                     </div>
                     <p class="tempo-restante-hora-minuto-segundo text-primary fw-bold text-center">
-                        10:51:04
+                        <span id="hours-left">10</span>:<span id="minutes-left">54</span>:<span id="seconds-left">03</span>
                     </p>
                 </div>
             </div>
         {% endif %}
 
     </section>
+
+    <script src="{{ url_for('static', filename='js/update-datetime-left.js') }}" defer></script>
 {% endblock %}
