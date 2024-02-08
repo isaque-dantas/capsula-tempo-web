@@ -4,16 +4,9 @@ from app import app, login_manager
 from flask import render_template, redirect, flash, url_for, abort
 from flask_login import AnonymousUserMixin, login_required, login_user, logout_user, current_user
 
-from app.forms import LoginForm, RegisterForm, TimegramForm, TimegramTitleForm
+from app.forms import LoginForm, RegisterForm, TimegramForm, TimegramTitleForm, EditUserForm
 from app.model import User, Timegram
 
-
-# TODO: deixar 'TODOs' como Issues no GitHub
-# TODO: deixar nomes de variáveis e métodos todos em inglês (código HTML / CSS)
-# TODO: formatar datas em '/dashboard'
-
-# TODO: criptografar título e conteúdo da mensagem
-# TODO: resolver bug do 'flask-messages.html'
 
 # TODO: (nova feature) integrar Flask-Babel para deixar o site em inglês e português
 # TODO: (nova feature) desenvolver CRUD do perfil do usuário
@@ -102,7 +95,8 @@ def dashboard():
         first_name=current_user.first_name,
         timegrams=current_user.get_timegrams(),
         enumerate=enumerate,
-        format=format
+        format=format,
+        current_user_username=current_user.username
     )
 
 
@@ -118,20 +112,20 @@ def logout():
 @login_required
 def access_timegram(timegram_id: int):
     if current_user.has_timegram_id(timegram_id):
-        user_already_can_read_timegram = current_user.already_can_read_timegram(timegram_id)
-        message_title_form = TimegramTitleForm()
         timegram = Timegram.get_by_id(timegram_id)
 
-        if message_title_form.validate_on_submit():
-            timegram.update_title(message_title_form.title.data)
+        timegram_title_form = TimegramTitleForm()
+        if timegram_title_form.validate_on_submit():
+            timegram.update_title(timegram_title_form.title.data)
 
         return render_template(
             'dashboard-timegram.html',
             timegram=timegram,
+            form=timegram_title_form,
             formatted_datetime_creation=timegram.get_formatted_datetime_creation(),
-            user_already_can_read_timegram=user_already_can_read_timegram,
-            form=message_title_form,
-            number_of_timegram=current_user.get_number_of_timegram(timegram_id)
+            user_already_can_read_timegram=current_user.already_can_read_timegram(timegram_id),
+            number_of_timegram=current_user.get_number_of_timegram(timegram_id),
+            current_user_username=current_user.username
         )
     else:
         abort(403)
@@ -162,7 +156,31 @@ def delete_timegram(timegram_id: int):
 
 @app.route('/timegram_datetime_can_open/<int:timegram_id>')
 @app.route('/timegram_datetime_can_open/<int:timegram_id>/')
+@login_required
 def timegram_datetime_can_open(timegram_id: int):
-    timegram = Timegram.get_by_id(timegram_id)
+    if current_user.has_timegram_id(timegram_id):
+        timegram = Timegram.get_by_id(timegram_id)
+        return timegram.get_datetime_can_open_dict()
+    else:
+        abort(403)
 
-    return timegram.get_datetime_can_open_dict()
+
+@app.route('/user/<username>')
+@app.route('/user/<username>/')
+@login_required
+def user_profile(username: str):
+    if current_user.username == username:
+        edit_user_form = EditUserForm()
+
+        if edit_user_form.validate_on_submit():
+            pass
+
+        return render_template(
+            'edit_user_profile.html',
+            form=edit_user_form,
+            user=current_user,
+            current_user_username=current_user.username,
+            format=format
+        )
+    else:
+        abort(403)

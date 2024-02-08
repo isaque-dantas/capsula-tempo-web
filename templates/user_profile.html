@@ -1,0 +1,49 @@
+{% extends 'base-without-login.html' %}
+
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+    <section class="user-profile container pt-5">
+        <div class="row">
+            <div class="col-3">
+                <div class="card p-4 shadow">
+                    <figure>
+                        <img src="{{ url_for('static', filename='img/author-profile-picture.png') }}" alt=""
+                             class="img-fluid">
+                    </figure>
+                    <h5 class="fw-normal">@{{ user.username }}</h5>
+                    <h4 class="text-primary fw-semibold">{{ user.first_name }} {{ user.last_name }}</h4>
+                </div>
+            </div>
+            <div class="col-8 ms-5">
+                <div class="d-flex flex-column gap-5">
+                    <div class="d-flex gap-3 align-items-center">
+                        <h2 class="text-primary fw-semibold m-0">Dados do perfil</h2>
+                        <a href="{{ url_for('edit_user') }}"
+                           class="button-edit btn btn-outline-primary d-flex justify-content-center align-items-center">
+                            <img src="{{ url_for('static', filename='img/edit.svg') }}" alt="" class="button-logo">
+                        </a>
+                    </div>
+                    <ul class="list-group shadow w-100">
+                        <li class="list-group-item py-3 fs-5">
+                            <p class="m-0 d-inline-block text-primary fw-semibold ms-2 me-4 data-label">E-mail</p>
+                            <p class="m-0 d-inline-block text-body-secondary fw-normal">{{ user.email }}</p>
+                        </li>
+                        <li class="list-group-item py-3 fs-5">
+                            <p class="m-0 d-inline-block text-primary fw-semibold ms-2 me-4 data-label">Cidade</p>
+                            <p class="m-0 d-inline-block text-body-secondary fw-normal">{{ user.first_name }} {{ user.last_name }}</p>
+                        </li>
+                        <li class="list-group-item py-3 fs-5">
+                            <p class="m-0 d-inline-block text-primary fw-semibold ms-2 me-4 data-label">UF</p>
+                            <p class="m-0 d-inline-block text-body-secondary fw-normal">Rio Grande do Norte</p>
+                        </li>
+                        <li class="list-group-item py-3 fs-5">
+                            <p class="m-0 d-inline-block text-primary fw-semibold ms-2 me-4 data-label">Nascimento</p>
+                            <p class="m-0 d-inline-block text-body-secondary fw-normal">14/03/2007</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="{{ url_for('static', filename='js/calculate-table-elements-width.js') }}"></script>
+{% endblock %}

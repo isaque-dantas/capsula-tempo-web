@@ -1,13 +1,3 @@
-// Arquivo referente às páginas 'dashboard-timegram.html' e 'dashboard.html'
-
-// TODO: implementar um evento que detecte a passagem do tempo e acione uma função para atualizar as informações
-//       no HTML dinamicamente;
-
-// https://flask.palletsprojects.com/en/3.0.x/patterns/javascript/
-// https://developer.mozilla.org/en-US/docs/Web/API/FormData
-// https://developer.mozilla.org/pt-BR/docs/Web/API/Fetch_API
-
-
 async function fetchDateCanOpen() {
     try {
         const response = await fetch('/' +
@@ -118,8 +108,7 @@ function subtractDates(dateA, dateB) {
         if (dateOffset < 0) {
 
             if (DATE_CONVERSIONS[dateKey] instanceof Object) {
-                dateOffset += DATE_CONVERSIONS[dateKey][dateObjectA.month][isLeapYear(dateObjectA.year)]
-                console.log(DATE_CONVERSIONS[dateKey][dateObjectA.month][isLeapYear(dateObjectA.year)])
+                dateOffset += DATE_CONVERSIONS[dateKey][1][isLeapYear(dateObjectA.year)]
             } else {
                 dateOffset += DATE_CONVERSIONS[dateKey]
             }
@@ -196,6 +185,7 @@ function updateDocumentDateLeft(dateLeft) {
 }
 
 const dateCanOpenPromise = fetchDateCanOpen()
+
 const differenceDate = calculateDateLeft(dateCanOpenPromise)
 differenceDate.then(response => {
     updateDocumentDateLeft(response)
@@ -211,6 +201,3 @@ setInterval(() => {
     })
 
 }, 1000)
-
-
-

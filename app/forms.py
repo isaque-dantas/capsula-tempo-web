@@ -89,3 +89,23 @@ class TimegramTitleForm(FlaskForm):
                         ])
 
     submit = SubmitField('Confirmar')
+
+
+class EditUserForm(FlaskForm):
+    username = StringField('',
+                        validators=[
+                            DataRequired(),
+                            Length(max=User.MAX_LENGTH['username'])
+                        ])
+    name = StringField('',
+                        validators=[
+                            DataRequired(),
+                            Length(max=User.MAX_LENGTH['first_name'] + 1 + User.MAX_LENGTH['last_name'])
+                        ])
+    email = StringField('E-mail',
+                        validators=[
+                            DataRequired(),
+                            Length(max=User.MAX_LENGTH['email'])
+                        ])
+
+    submit = SubmitField('Confirmar')

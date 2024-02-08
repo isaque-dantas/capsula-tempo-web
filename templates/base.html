@@ -55,19 +55,7 @@
                         <span class="text-primary">Home</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/#about">
-                        <span class="text-primary">Sobre o autor</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-primary fw-semibold" href="{{ url_for('login') }}">
-                        <span class="border-bottom border-2 border-warning">Login</span>
-                    </a>
-                </li>
-                <li class="nav-item ms-lg-4 mt-lg-0 mt-4">
-                    <a href="{{ url_for('register') }}" class="btn btn-primary fw-bold px-4">Fazer cadastro</a>
-                </li>
+                {% block navbar_nav %}{% endblock %}
             </ul>
         </div>
     </div>

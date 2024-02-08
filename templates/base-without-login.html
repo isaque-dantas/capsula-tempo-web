@@ -5,8 +5,21 @@
 {% endblock %}
 
 {% block navbar_nav %}
-    <a href="{{ url_for('index') }}" class="nav-link fw-medium">Home</a>
-    <a href="{{ url_for('dashboard') }}" class="nav-link fw-medium">Dashboard</a>
-    <a href="{{ url_for('logout') }}" class="nav-link fw-medium">Sair</a>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('dashboard') }}">
+            <span class="text-primary">Dashboard</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active text-primary fw-semibold" href="{{ url_for('logout') }}">
+            <span class="border-bottom border-2 border-warning">Sair</span>
+        </a>
+    </li>
+    <li class="nav-item ms-lg-4 mt-lg-0 mt-4">
+        <a href="{{ url_for('user_profile', username=current_user_username) }}" class="btn border-2 btn-outline-primary px-4">
+            <img src="{{ url_for('static', filename='img/user.svg') }}" alt="" class="button-logo">
+            <span class="fw-semibold">Ver perfil</span>
+        </a>
+    </li>
 {% endblock %}
 

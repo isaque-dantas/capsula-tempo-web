@@ -234,8 +234,10 @@ class Timegram(db.Model):
         return converted_datetime
 
     def get_formatted_datetime_creation(self):
-        print(self.datetime_creation_local_timezone)
         return self.get_formatted_datetime(self.datetime_creation_local_timezone)
+
+    def get_formatted_datetime_can_open(self):
+        return self.get_formatted_datetime(self.datetime_can_open_local_timezone)
 
     @staticmethod
     def get_formatted_datetime(dt: datetime.datetime) -> dict:

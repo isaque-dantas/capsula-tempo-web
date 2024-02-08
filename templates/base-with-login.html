@@ -5,8 +5,17 @@
 {% endblock %}
 
 {% block navbar_nav %}
-    <a href="{{ url_for('index') }}" class="nav-link fw-medium fs-lg-5 fs-sm-6">Home</a>
-    <a href="/index#about" class="nav-link fw-medium fs-lg-5">Sobre</a>
-    <a href="{{ url_for('login') }}" class="nav-link fw-medium fs-lg-5">Login</a>
-    <a href="{{ url_for('register') }}" class="btn btn-primary fw-bold px-4 fs-lg-5">Fazer cadastro</a>
+    <li class="nav-item">
+        <a class="nav-link" href="/#about">
+            <span class="text-primary">Sobre o autor</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active text-primary fw-semibold" href="{{ url_for('login') }}">
+            <span class="border-bottom border-2 border-warning">Login</span>
+        </a>
+    </li>
+    <li class="nav-item ms-lg-4 mt-lg-0 mt-4">
+        <a href="{{ url_for('register') }}" class="btn btn-primary fw-bold px-4">Fazer cadastro</a>
+    </li>
 {% endblock %}

@@ -2,6 +2,7 @@
 
 {% block title %}Dashboard{% endblock %}
 {% block content %}
+    <script src="{{ url_for('static', filename='js/update-datetime-left.js') }}" defer></script>
     <section class="mensagem container pt-5 pb-4 d-flex flex-column">
         <div class="mb-5">
             <div class="d-flex gap-2 mb-3 descricao-rota">
@@ -53,7 +54,7 @@
                 <div>
                     <button type="button" data-bs-toggle="modal"
                             data-bs-target="#editMessageTitle{{ timegram.id }}"
-                            class="edit-title btn btn-outline-primary d-flex justify-content-center align-items-center">
+                            class="button-edit btn btn-outline-primary d-flex justify-content-center align-items-center">
                         <img src="{{ url_for('static', filename='img/edit.svg') }}" alt="" class="button-logo">
                     </button>
                 </div>
@@ -105,12 +106,16 @@
                 <p class="m-0 fs-5 text-center">O acesso ao timegram será liberado em</p>
                 <div class="d-flex flex-column align-items-center">
                     <div class="tempo-restante-ano-mes-dia d-flex gap-4 align-items-center">
-                        <p class="m-0 text-primary fw-bold"><span id="years-left">1</span> <span id="years-left-label">ano</span></p>
-                        <p class="m-0 text-primary fw-bold"><span id="months-left">2</span> <span id="months-left-label">meses</span></p>
-                        <p class="m-0 text-primary fw-bold"><span id="days-left">5</span> <span id="days-left-label">dias</span></p>
+                        <p class="m-0 text-primary fw-bold"><span id="years-left"></span> <span id="years-left-label"></span>
+                        </p>
+                        <p class="m-0 text-primary fw-bold"><span id="months-left"></span> <span
+                                id="months-left-label"></span></p>
+                        <p class="m-0 text-primary fw-bold"><span id="days-left"></span> <span id="days-left-label"></span>
+                        </p>
                     </div>
                     <p class="tempo-restante-hora-minuto-segundo text-primary fw-bold text-center">
-                        <span id="hours-left">10</span>:<span id="minutes-left">54</span>:<span id="seconds-left">03</span>
+                        <span id="hours-left"></span>:<span id="minutes-left"></span>:<span
+                            id="seconds-left"></span>
                     </p>
                 </div>
             </div>
@@ -118,5 +123,4 @@
 
     </section>
 
-    <script src="{{ url_for('static', filename='js/update-datetime-left.js') }}" defer></script>
 {% endblock %}

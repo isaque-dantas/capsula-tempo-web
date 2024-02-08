@@ -24,7 +24,7 @@
                                     <h5 class="card-title text-primary fw-semibold mb-3">
                                         {{ timegram.title }}
                                     </h5>
-                                    <figure>
+                                    <figure class="ms-2">
                                         <img src="{{ url_for('static', filename='img/info.svg') }}" class="img-fluid"
                                              alt="" style="max-width: 20px">
                                     </figure>
@@ -33,11 +33,13 @@
                                 <table class="table">
                                     <tr>
                                         <td>Criação</td>
-                                        <td>{{ timegram.datetime_creation }}</td>
+                                        <td>{{ timegram.get_formatted_datetime_creation()['formatted_date'] }}
+                                            - {{ timegram.get_formatted_datetime_creation()['formatted_time'] }}</td>
                                     </tr>
                                     <tr>
                                         <td>Abertura</td>
-                                        <td>{{ timegram.datetime_can_open }}</td>
+                                        <td>{{ timegram.get_formatted_datetime_can_open()['formatted_date'] }}
+                                            - {{ timegram.get_formatted_datetime_can_open()['formatted_time'] }}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -46,15 +48,10 @@
                 {% endfor %}
             </div>
         {% else %}
-            <div class="criar-mensagem d-flex flex-column align-items-center mt-5">
+            <div class="d-flex flex-column align-items-center mt-5">
                 <hr class="w-100 border border-tertiary">
                 <h5 class="text-secondary m-0 text-center w-50 mt-5 fw-normal">Não há nenhuma mensagem registrada</h5>
             </div>
         {% endif %}
-    </section>
-    <section class="container">
-
-        {#    {% for timegram in timegrams %}#}
-        {#    {% endfor %} #}
     </section>
 {% endblock %}

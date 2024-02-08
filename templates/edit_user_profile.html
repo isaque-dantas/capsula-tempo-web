@@ -1,0 +1,59 @@
+{% extends 'base-without-login.html' %}
+
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+    <section class="user-profile container pt-5" id="container">
+        <form method="POST" action="{{ url_for('user_profile', username=current_user_username) }}"
+              class="row row-gap-5">
+            {{ form.hidden_tag() }}
+            <div class="col-3">
+                <div class="card p-4 shadow">
+                    <figure>
+                        <img src="{{ url_for('static', filename='img/author-profile-picture.png') }}" alt=""
+                             class="img-fluid">
+                    </figure>
+                    {{ form.username(class="fw-normal mb-2 fs-5", value="@{}".format(user.username)) }}
+                    {{ form.name(class="text-primary fw-semibold fs-4", value="{} {}".format(user.first_name, user.last_name)) }}
+                </div>
+            </div>
+            <div class="col-8 ms-5">
+                <div class="d-flex flex-column gap-5">
+                    <div class="d-flex gap-3 align-items-center">
+                        <h2 class="text-primary fw-semibold m-0">Dados do perfil</h2>
+                        <button type="button" onclick="enableForm()"
+                                class="button-edit btn btn-outline-primary d-flex justify-content-center align-items-center">
+                            <img src="{{ url_for('static', filename='img/edit.svg') }}" alt="" class="button-logo">
+                        </button>
+                    </div>
+                    <ul class="list-group shadow w-100">
+                        <li class="list-group-item py-3 fs-5">
+                            {{ form.email.label(class="m-0 text-primary fw-semibold ms-2 me-4 data-label d-inline-block") }}
+                            {{ form.email(class="m-0 text-body-secondary fw-normal d-inline-block", value=user.email) }}
+                        </li>
+                        <li class="list-group-item py-3 fs-5">
+                            <p class="m-0 text-primary fw-semibold ms-2 me-4 data-label d-inline-block">Cidade</p>
+                            <p class="m-0 text-body-secondary fw-normal d-inline-block">{{ user.first_name }} {{ user.last_name }}</p>
+                        </li>
+                        <li class="list-group-item py-3 fs-5">
+                            <p class="m-0 text-primary fw-semibold ms-2 me-4 data-label d-inline-block">UF</p>
+                            <p class="m-0 text-body-secondary fw-normal d-inline-block">Rio Grande do Norte</p>
+                        </li>
+                        <li class="list-group-item py-3 fs-5">
+                            <p class="m-0 text-primary fw-semibold ms-2 me-4 data-label d-inline-block">Nascimento</p>
+                            <p class="m-0 text-body-secondary fw-normal d-inline-block">14/03/2007</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-8 offset-3">
+                <div class="ms-5">
+                    <button type="button" onclick="unableForm()"
+                            class="btn btn-outline-secondary px-5 fw-semibold border-2 form-button">Cancelar
+                    </button>
+                    {{ form.submit(class="btn btn-outline-primary fw-bold ms-4 border-2 px-5 form-button") }}</div>
+            </div>
+        </form>
+    </section>
+    <script src="{{ url_for('static', filename='js/calculate-table-elements-width.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/manage-edit-user-form.js') }}"></script>
+{% endblock %}
