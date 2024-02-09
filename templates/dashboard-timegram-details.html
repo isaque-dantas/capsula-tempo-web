@@ -2,17 +2,16 @@
 
 {% block title %}Dashboard{% endblock %}
 {% block content %}
-    <script src="{{ url_for('static', filename='js/update-datetime-left.js') }}" defer></script>
     <section class="mensagem container pt-5 pb-4 d-flex flex-column">
         <div class="mb-5">
             <div class="d-flex gap-2 mb-3 descricao-rota">
                 <a href="{{ url_for('dashboard') }}">Dashboard</a>
                 <span class="text-primary">></span>
-                <a href="{{ url_for('access_timegram', timegram_id=timegram.id) }}">Mensagem</a>
+                <a href="{{ url_for('access_timegram', timegram_id=timegram.id) }}">Timegram</a>
             </div>
             <div class="toolbar d-flex justify-content-between align-items-center
                         px-4 py-3 bg-body-tertiary rounded-3 shadow">
-                <h5 class="m-0">Mensagem #{{ number_of_timegram }}</h5>
+                <h5 class="m-0"><em class="timegram">Timegram</em> #{{ number_of_timegram }}</h5>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#excludeMessage{{ timegram.id }}"
                         class="btn btn-outline-danger border-2 py-2 px-3 d-flex gap-2 align-items-center">
                     <img src="{{ url_for('static', filename='img/trash-2.svg') }}" alt="" class="button-logo">
@@ -30,7 +29,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Realmente deseja excluir a mensagem com o título <strong>'{{ timegram.title }}'</strong>?
+                        Realmente deseja excluir o Timegram com o título <strong>'{{ timegram.title }}'</strong>?
                     </div>
                     <div class="modal-footer gap-1">
                         <button type="button" class="fw-bold btn btn-outline-primary" data-bs-dismiss="modal">Cancelar
@@ -48,7 +47,7 @@
 
         {% include 'flash_messages.html' %}
 
-        <div class="d-flex flex-column gap-3 message-title mb-3">
+        <div class="d-flex flex-column gap-3 w-fit-content message-title mb-3">
             <div class="d-flex gap-3 align-items-center">
                 <h2 class="text-primary fw-bold m-0">{{ timegram.title }}</h2>
                 <div>
@@ -75,7 +74,7 @@
                         </div>
                         <div class="modal-body py-3">
                             {{ form.title.label(class="form-label fw-medium") }}
-                            {{ form.title(class="form-control", value=timegram.title, placeholder="Insira o novo título da mensagem") }}
+                            {{ form.title(class="form-control", value=timegram.title, placeholder="Insira o novo título do Timegram") }}
                         </div>
                         <div class="modal-footer gap-1">
                             <button type="button" class="fw-bold btn btn-secondary" data-bs-dismiss="modal">
@@ -100,8 +99,9 @@
         </div>
 
         {% if user_already_can_read_timegram %}
-            <p class="conteudo-mensagem mt-4">{{ timegram.content }}</p>
+            <p class="mt-4" id="timegram-content">{{ timegram.content }}</p>
         {% else %}
+            <script src="{{ url_for('static', filename='js/update-datetime-left.js') }}"></script>
             <div class="tempo-restante d-flex flex-column gap-4 align-self-center">
                 <p class="m-0 fs-5 text-center">O acesso ao timegram será liberado em</p>
                 <div class="d-flex flex-column align-items-center">

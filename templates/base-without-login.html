@@ -11,14 +11,29 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link active text-primary fw-semibold" href="{{ url_for('logout') }}">
-            <span class="border-bottom border-2 border-warning">Sair</span>
+        <a class="nav-link" href="{{ url_for('dashboard') }}">
+            <span class="text-primary">Timegrams</span>
         </a>
     </li>
-    <li class="nav-item ms-lg-4 mt-lg-0 mt-4">
-        <a href="{{ url_for('user_profile', username=current_user_username) }}" class="btn border-2 btn-outline-primary px-4">
-            <img src="{{ url_for('static', filename='img/user.svg') }}" alt="" class="button-logo">
-            <span class="fw-semibold">Ver perfil</span>
+    {#    ms-lg-4 mt-lg-0 mt-4#}
+    <li class="nav-item input-group border-primary bg-body mx-3">
+        {#        <input class="form-control" type="search" placeholder="Pesquisar usuários" aria-label="Search"#}
+        {#               id="nav-search-input">#}
+
+        <form action="{{ url_for('search_user') }}">
+            <input type="text" class="form-control border-primary" placeholder="Pesquisar usuários" aria-label="Search"
+                   id="nav-search-input">
+            <button class="btn btn-outline-primary fw-medium" type="submit">
+                <img src="{{ url_for('static', filename='img/search.svg') }}" alt="" id="nav-img-search"
+                     class="button-logo">
+            </button>
+        </form>
+
+    </li>
+    <li class="nav-item ms-2">
+        <a href="{{ url_for('user_profile', username=current_user_username) }}" class="d-block">
+            <img src="{{ url_for('static', filename='img/author-profile-picture.png') }}" alt="" class=""
+                 id="nav-user-img">
         </a>
     </li>
 {% endblock %}

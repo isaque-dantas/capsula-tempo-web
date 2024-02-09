@@ -42,7 +42,6 @@ class User(db.Model, UserMixin):
     def register(form):
         already_registered_form_attributes = \
             User.get_already_registered_form_attributes(username=form.username.data, email=form.email.data)
-        # raise ValueError(already_registered_form_attributes)
 
         if already_registered_form_attributes:
             integrity_error_message = User.generate_integrity_error_message(already_registered_form_attributes)
@@ -165,6 +164,29 @@ class User(db.Model, UserMixin):
             timegrams_ids_list.append(*timegram_id)
 
         return timegrams_ids_list
+
+    def edit(self, form):
+        self.username = form.username.data
+        self.email = form.email.data
+
+        name = form.name.data
+        name = name.split()
+
+        if len(name) > 2:
+            raise AttributeError('Insira apenas seu nome e sobrenome')
+        else:
+            self.first_name, self.last_name = name
+
+        db.session.commit()
+
+    def delete(self):
+        timegrams = self.get_timegrams()
+
+        for timegram in timegrams:
+            db.session.delete(timegram)
+
+        db.session.delete(self)
+        db.session.commit()
 
 
 class Timegram(db.Model):

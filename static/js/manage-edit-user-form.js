@@ -1,16 +1,18 @@
 const textInputs = getTextInputs()
-const buttons = document.getElementsByClassName("form-button")
-console.log(buttons)
 const labels = document.getElementsByTagName("label")
+const formButtonContainer = document.getElementById("form-button-container")
 
-const originalLabelsForProperties = getLabelsForProperties(labels)
+const initialLabelsForProperties = getLabelsForProperties(labels)
+
+unableForm()
+formButtonContainer.style.visibility = 'visible'
 
 function getTextInputs() {
     const inputs = document.getElementsByTagName("input")
     let textInputs = []
 
     for (let i=0; i<inputs.length; i++) {
-        if (inputs[i].type === "text" ) {
+        if (inputs[i].type === "text" || inputs[i].type === "email" ) {
             textInputs.push(inputs[i])
         }
     }
@@ -28,14 +30,14 @@ function getLabelsForProperties() {
     return forProperties
 }
 
-unableForm()
-
 function unableForm() {
+    hideFormButtons()
     changeInputsReadOnlyPropertyTo(true)
     removeLabelsForProperties()
 }
 
 function enableForm() {
+    showFormButtons()
     changeInputsReadOnlyPropertyTo(false)
     restoreOriginalLabelsForProperties()
 }
@@ -54,7 +56,14 @@ function removeLabelsForProperties() {
 
 function restoreOriginalLabelsForProperties() {
     for (let i = 0; i < labels.length; i++) {
-        labels[i].htmlFor = originalLabelsForProperties[i]
+        labels[i].htmlFor = initialLabelsForProperties[i]
     }
 }
 
+function hideFormButtons() {
+    formButtonContainer.style.width = "0px"
+}
+
+function showFormButtons() {
+    formButtonContainer.style.width = "100%"
+}

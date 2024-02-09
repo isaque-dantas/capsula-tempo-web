@@ -1,7 +1,7 @@
 import werkzeug
 
 from app import app, login_manager
-from flask import render_template, redirect, flash, url_for, abort
+from flask import render_template, redirect, flash, url_for, abort, request
 from flask_login import AnonymousUserMixin, login_required, login_user, logout_user, current_user
 
 from app.forms import LoginForm, RegisterForm, TimegramForm, TimegramTitleForm, EditUserForm
@@ -69,6 +69,9 @@ def login():
             flash('Email e/ou senha inválidos',
                   category='danger')
 
+    if request.method == 'POST':
+        return redirect(url_for('login'))
+
     return render_template('login.html', form=login_form)
 
 
@@ -84,6 +87,9 @@ def register():
         else:
             return redirect('/login')
 
+    if request.method == 'POST':
+        return redirect(url_for('register'))
+
     return render_template('register-user.html', form=register_form)
 
 
@@ -91,7 +97,7 @@ def register():
 @login_required
 def dashboard():
     return render_template(
-        template_name_or_list='dashboard.html',
+        template_name_or_list='dashboard-timegrams.html',
         first_name=current_user.first_name,
         timegrams=current_user.get_timegrams(),
         enumerate=enumerate,
@@ -118,8 +124,11 @@ def access_timegram(timegram_id: int):
         if timegram_title_form.validate_on_submit():
             timegram.update_title(timegram_title_form.title.data)
 
+        if request.method == 'POST':
+            return redirect(url_for('access_timegram', timegram_id=timegram_id))
+
         return render_template(
-            'dashboard-timegram.html',
+            'dashboard-timegram-details.html',
             timegram=timegram,
             form=timegram_title_form,
             formatted_datetime_creation=timegram.get_formatted_datetime_creation(),
@@ -138,6 +147,9 @@ def register_timegram():
     if timegram_form.validate_on_submit():
         Timegram.register(timegram_form, current_user)
         return redirect(url_for('dashboard'))
+
+    if request.method == 'POST':
+        return redirect(url_for('register_timegram'))
 
     return render_template('register-timegram.html',
                            form=timegram_form)
@@ -165,15 +177,21 @@ def timegram_datetime_can_open(timegram_id: int):
         abort(403)
 
 
-@app.route('/user/<username>')
-@app.route('/user/<username>/')
+@app.route('/user/<username>', methods=['GET', 'POST'])
+@app.route('/user/<username>/', methods=['GET', 'POST'])
 @login_required
 def user_profile(username: str):
     if current_user.username == username:
         edit_user_form = EditUserForm()
 
         if edit_user_form.validate_on_submit():
-            pass
+            try:
+                current_user.edit(edit_user_form)
+            except AttributeError as err:
+                flash(str(err), category='danger')
+
+        if request.method == 'POST':
+            return redirect(url_for('user_profile', username=current_user.username))
 
         return render_template(
             'edit_user_profile.html',
@@ -184,3 +202,24 @@ def user_profile(username: str):
         )
     else:
         abort(403)
+
+
+@app.route('/delete_user/<int:user_id>', methods=['GET', 'POST'])
+@app.route('/delete_user/<int:user_id>/', methods=['GET', 'POST'])
+@login_required
+def delete_user(user_id: int):
+    if current_user.id == user_id:
+        current_user.delete()
+
+        return redirect(url_for('login'))
+    else:
+        abort(403)
+
+@app.route('/request_test', methods=['GET', 'POST'])
+def request_test():
+    print(request)
+    return redirect(url_for('dashboard'))
+
+@app.route('/search_user', methods=['GET', 'POST'])
+def search_user():
+    if

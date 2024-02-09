@@ -1,3 +1,35 @@
+const dateCanOpenPromise = fetchDateCanOpen()
+let dateLeft;
+
+main()
+setInterval(main, 1000)
+
+async function main() {
+    dateLeft = calculateDateLeft(dateCanOpenPromise)
+    const dateLeftObject = await dateLeft
+
+    if (dateLeftIsZero(dateLeftObject)) {
+        reloadPage()
+    } else {
+        updateDocumentDateLeft(dateLeftObject)
+    }
+}
+
+function reloadPage() {
+    location.reload()
+}
+
+function dateLeftIsZero(dateLeft) {
+    for (const dateKey in dateLeft) {
+        if (dateLeft[dateKey] !== 0) {
+            return false
+        }
+    }
+
+    alreadyReloadedPage = true
+    return true
+}
+
 async function fetchDateCanOpen() {
     try {
         const response = await fetch('/' +
@@ -95,11 +127,16 @@ function subtractDates(dateA, dateB) {
     let dateObjectA = dateToObject(dateA)
     let dateObjectB = dateToObject(dateB)
 
+    const dateKeys = ['second', 'minute', 'hour', 'day', 'month', 'year']
+
     if (dateB > dateA) {
-        return -1
+        for (const dateKey in dateKeys) {
+            dateOffsets[dateKey] = 0
+        }
+
+        return dateOffsets
     }
 
-    const dateKeys = ['second', 'minute', 'hour', 'day', 'month', 'year']
 
     for (let i = 0; i < dateKeys.length; i++) {
         const dateKey = dateKeys[i]
@@ -117,7 +154,6 @@ function subtractDates(dateA, dateB) {
             dateObjectA[nextDateKey] -= 1
         }
 
-        console.log(`${dateKey}: ${dateObjectA[dateKey]} - ${dateObjectB[dateKey]} = ${dateOffset}`)
         dateOffsets[dateKey] = dateOffset
     }
 
@@ -184,20 +220,8 @@ function updateDocumentDateLeft(dateLeft) {
     }
 }
 
-const dateCanOpenPromise = fetchDateCanOpen()
 
-const differenceDate = calculateDateLeft(dateCanOpenPromise)
-differenceDate.then(response => {
-    updateDocumentDateLeft(response)
-    console.log(response)
-})
 
-setInterval(() => {
-    const differenceDate = calculateDateLeft(dateCanOpenPromise)
 
-    differenceDate.then(response => {
-        updateDocumentDateLeft(response)
-        console.log(response)
-    })
 
-}, 1000)
+

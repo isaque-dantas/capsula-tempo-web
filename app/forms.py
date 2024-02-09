@@ -32,7 +32,7 @@ class RegisterForm(FlaskForm):
     email = EmailField('E-mail',
                        validators=[
                            DataRequired(),
-                           Length(max=User.MAX_LENGTH['email'])
+                           Length(max=User.MAX_LENGTH['email']),
                        ])
 
     submit = SubmitField('Confirmar')
@@ -93,19 +93,19 @@ class TimegramTitleForm(FlaskForm):
 
 class EditUserForm(FlaskForm):
     username = StringField('',
-                        validators=[
-                            DataRequired(),
-                            Length(max=User.MAX_LENGTH['username'])
-                        ])
+                           validators=[
+                               DataRequired(),
+                               Length(max=User.MAX_LENGTH['username'])
+                           ])
     name = StringField('',
-                        validators=[
-                            DataRequired(),
-                            Length(max=User.MAX_LENGTH['first_name'] + 1 + User.MAX_LENGTH['last_name'])
-                        ])
-    email = StringField('E-mail',
-                        validators=[
-                            DataRequired(),
-                            Length(max=User.MAX_LENGTH['email'])
-                        ])
+                       validators=[
+                           DataRequired(),
+                           Length(max=User.MAX_LENGTH['first_name'] + 1 + User.MAX_LENGTH['last_name'])
+                       ])
+    email = EmailField('E-mail',
+                       validators=[
+                           DataRequired(),
+                           Length(max=User.MAX_LENGTH['email'])
+                       ])
 
     submit = SubmitField('Confirmar')
