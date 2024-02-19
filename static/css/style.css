@@ -1,14 +1,10 @@
-* {
-    box-sizing: border-box;
-}
-
 ::selection {
     background-color: #0D6EFD;
     color: var(--bs-light);
 }
 
 * {
-    box-sizing: border-box;
+    box-sizing: border-box
 }
 
 .w-fit-content {
@@ -20,8 +16,10 @@
     height: 40px;
 }
 
-input.button-edit {
-
+.form-control:focus {
+    border-color: var(--bs-primary);
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
 
 body {
@@ -53,9 +51,20 @@ nav.navbar .button-logo {
     width: auto;
 }
 
+ul.navbar-nav .input-group {
+    max-width: 400px;
+}
+
 ul.navbar-nav #nav-user-img {
     width: auto;
-    height: 64px;
+    height: 96px;
+}
+
+@media (min-width: 992px) {
+    ul.navbar-nav #nav-user-img {
+        width: auto;
+        height: 64px;
+    }
 }
 
 ul.navbar-nav #nav-img-search {
@@ -63,7 +72,7 @@ ul.navbar-nav #nav-img-search {
     height: 20px;
 }
 
-.timegram {
+em.timegram {
     font-family: 'Montserrat Alternates', sans-serif;
     color: var(--bs-primary) !important;
     font-weight: 600 !important;
@@ -94,7 +103,7 @@ h2 > em.timegram::after {
 
 body > section.login,
 body > section.cadastrar,
-body > section.escrever-mensagem {
+body > section.escrever-timegram {
     max-width: 696px;
 }
 
@@ -181,25 +190,25 @@ body > section.escrever-mensagem {
     }
 }
 
-section.datetime-restante-mensagem hr {
+section.datetime-restante-timegram hr {
     border-color: #8f8f8f;
     width: 100%;
 }
 
-section.escrever-mensagem div.input-group.date {
+section.escrever-timegram div.input-group.date {
     max-width: 200px;
 }
 
-section.escrever-mensagem textarea#mensagemInputConteudo {
+section.escrever-timegram textarea#timegramInputConteudo {
     min-height: 160px;
     max-height: 400px;
 }
 
-section.datetime-restante-mensagem .date-restante-mensagem > p {
+section.datetime-restante-timegram .date-restante-timegram > p {
     font-size: 48px;
 }
 
-section.datetime-restante-mensagem .time-restante-mensagem {
+section.datetime-restante-timegram .time-restante-timegram {
     font-size: 72px;
 }
 
@@ -219,32 +228,33 @@ section.datetime-restante-mensagem .time-restante-mensagem {
     transition-duration: 0.15s;
 }
 
-section.mensagens .card-title {
-    /*font-size: 18px;*/
+section.timegrams .toolbar img {
+    /*width: 40px;*/
+    height: 100%;
 }
 
-section.mensagens .table td {
+section.timegrams .table td {
     font-size: 14px;
 }
 
-section.mensagem .toolbar .button-logo {
+section.timegram .toolbar .button-logo {
     width: 24px;
     height: auto;
 }
 
-section.mensagem .tempo-restante {
+section.timegram .tempo-restante {
     margin-top: 96px;
 }
 
-section.mensagem .tempo-restante .tempo-restante-ano-mes-dia {
+section.timegram .tempo-restante .tempo-restante-ano-mes-dia {
     font-size: 44px;
 }
 
-section.mensagem .tempo-restante .tempo-restante-hora-minuto-segundo {
+section.timegram .tempo-restante .tempo-restante-hora-minuto-segundo {
     font-size: 52px;
 }
 
-section.mensagem #timegram-content {
+section.timegram #timegram-content {
     font-size: 18px;
 }
 
@@ -259,14 +269,14 @@ section.user-profile .card h5 {
 }
 
 section.user-profile input[type="text"],
-section.user-profile input[type="email"]{
+section.user-profile input[type="email"] {
     outline: none;
     border-style: solid;
     border-color: var(--bs-primary);
 }
 
 section.user-profile input[type="text"]:not([readonly]),
-section.user-profile input[type="email"]:not([readonly]){
+section.user-profile input[type="email"]:not([readonly]) {
     border-width: 1px;
     border-radius: 4px;
     margin: 0 0 8px 8px;
@@ -274,7 +284,7 @@ section.user-profile input[type="email"]:not([readonly]){
 }
 
 section.user-profile input[type="text"][readonly],
-section.user-profile input[type="email"][readonly]{
+section.user-profile input[type="email"][readonly] {
     margin: 0 0 0 8px;
     border-width: 0;
 }

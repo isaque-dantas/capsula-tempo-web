@@ -16,8 +16,8 @@ from app.model import User, Timegram
 #       primeiro os que recebeu e depois os que enviou, separados por um espaçamento
 
 # TODO: (nova feature) criar opção de cadastro de usuários por categoria (
-#    pessoa física -> envio de mensagens para apenas um usuário,
-#    empresa -> envio de mensagens para um grupo pré-determinado; criar grupos de pessoas (times)
+#    pessoa física -> envio de timegrams para apenas um usuário,
+#    empresa -> envio de timegrams para um grupo pré-determinado; criar grupos de pessoas (times)
 #  )
 
 
@@ -215,11 +215,14 @@ def delete_user(user_id: int):
     else:
         abort(403)
 
+
 @app.route('/request_test', methods=['GET', 'POST'])
 def request_test():
     print(request)
     return redirect(url_for('dashboard'))
 
+
 @app.route('/search_user', methods=['GET', 'POST'])
+@login_required
 def search_user():
-    if
+    return redirect(url_for('dashboard'))

@@ -68,7 +68,7 @@ class TimegramForm(FlaskForm):
                                 DataRequired()
                             ])
 
-    date_can_open = DateField('O dia e o horário em que a mensagem será liberada',
+    date_can_open = DateField('O dia e o horário em que a timegram será liberada',
                               validators=[
                                   DataRequired()
                               ])

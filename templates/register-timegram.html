@@ -1,11 +1,11 @@
 {% extends 'base-without-login.html' %}
 
-{% block title %}Escrever mensagem{% endblock %}
+{% block title %}Escrever timegram{% endblock %}
 {% block content %}
-    <section class="container escrever-mensagem py-5 gap-1">
+    <section class="container escrever-timegram py-5 gap-1">
         {% include 'flash_messages.html' %}
 
-        <h2 class="text-primary fw-bold">Escreva sua mensagem</h2>
+        <h2 class="text-primary fw-bold">Escreva sua timegram</h2>
         <hr class="mb-4">
         <form action="/register_timegram" method="POST" class="d-flex flex-column gap-4">
             {{ form.hidden_tag() }}

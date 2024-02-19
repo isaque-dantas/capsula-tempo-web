@@ -5,22 +5,20 @@
 {% endblock %}
 
 {% block navbar_nav %}
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('dashboard') }}">
+    <li class="nav-item mt-lg-0 mt-3">
+        <a class="nav-link d-inline-block" href="{{ url_for('dashboard') }}">
             <span class="text-primary">Dashboard</span>
         </a>
     </li>
+
     <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('dashboard') }}">
+        <a class="nav-link d-inline-block" href="{{ url_for('dashboard') }}">
             <span class="text-primary">Timegrams</span>
         </a>
     </li>
-    {#    ms-lg-4 mt-lg-0 mt-4#}
-    <li class="nav-item input-group border-primary bg-body mx-3">
-        {#        <input class="form-control" type="search" placeholder="Pesquisar usuários" aria-label="Search"#}
-        {#               id="nav-search-input">#}
 
-        <form action="{{ url_for('search_user') }}">
+    <li class="nav-item border-primary d-flex align-items-center justify-content-between mt-lg-0 mt-3">
+        <form action="{{ url_for('search_user') }}" method="POST" class="d-flex input-group mx-lg-3 me-2 me-sm-0">
             <input type="text" class="form-control border-primary" placeholder="Pesquisar usuários" aria-label="Search"
                    id="nav-search-input">
             <button class="btn btn-outline-primary fw-medium" type="submit">
@@ -29,12 +27,11 @@
             </button>
         </form>
 
-    </li>
-    <li class="nav-item ms-2">
-        <a href="{{ url_for('user_profile', username=current_user_username) }}" class="d-block">
+        <a href="{{ url_for('user_profile', username=current_user_username) }}" class="d-inline-block">
             <img src="{{ url_for('static', filename='img/author-profile-picture.png') }}" alt="" class=""
                  id="nav-user-img">
         </a>
+
     </li>
 {% endblock %}
 
