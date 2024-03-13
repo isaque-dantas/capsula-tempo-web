@@ -26,21 +26,22 @@ function dateLeftIsZero(dateLeft) {
         }
     }
 
-    alreadyReloadedPage = true
     return true
 }
 
 async function fetchDateCanOpen() {
     try {
-        const response = await fetch('/' +
-            `timegram_datetime_can_open/${getTimegramID()}`)
+        const response = await fetch(
+            `/timegram_datetime_can_open/${getTimegramID()}`,
+            {method: 'POST'}
+        )
 
-        if (response.ok) {
-            const responseJson = await response.json()
-            return responseJson
-        } else {
-            throw new Error('Deu errado, parceiro')
+        if (!response.ok) {
+            throw new Error(`Response code is ${response.status}`)
         }
+
+        return await response.json()
+
     } catch (error) {
         console.error(error)
     }
@@ -219,9 +220,3 @@ function updateDocumentDateLeft(dateLeft) {
         }
     }
 }
-
-
-
-
-
-

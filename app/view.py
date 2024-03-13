@@ -1,5 +1,3 @@
-import werkzeug
-
 from app import app, login_manager
 from flask import render_template, redirect, flash, url_for, abort, request
 from flask_login import AnonymousUserMixin, login_required, login_user, logout_user, current_user
@@ -9,11 +7,6 @@ from app.model import User, Timegram
 
 
 # TODO: (nova feature) integrar Flask-Babel para deixar o site em inglês e português
-# TODO: (nova feature) desenvolver CRUD do perfil do usuário
-# TODO: (nova feature) desenvolver ferramenta de pesquisa de outros usuários
-
-# TODO: (nova feature) implementar envio de timegrams entre usuários; no dashboard, o usuário vê
-#       primeiro os que recebeu e depois os que enviou, separados por um espaçamento
 
 # TODO: (nova feature) criar opção de cadastro de usuários por categoria (
 #    pessoa física -> envio de timegrams para apenas um usuário,
@@ -28,16 +21,30 @@ def is_current_user_logged_in() -> bool:
 @app.errorhandler(403)
 def forbidden(e):
     return render_template(
-        'http_403_forbidden.html',
-        current_user_is_logged_in=is_current_user_logged_in()
+        'http_error_code.html',
+        current_user_is_logged_in=is_current_user_logged_in(),
+        error_code=403,
+        error_description='Você não tem permissão para acessar essa página.'
     )
 
 
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template(
-        'http_404_not_found.html',
-        current_user_is_logged_in=is_current_user_logged_in()
+        'http_error_code.html',
+        current_user_is_logged_in=is_current_user_logged_in(),
+        error_code=404,
+        error_description='A página que você tentou acessar não foi encontrada.'
+    )
+
+
+@app.errorhandler(405)
+def page_not_found(e):
+    return render_template(
+        'http_error_code.html',
+        current_user_is_logged_in=is_current_user_logged_in(),
+        error_code=405,
+        error_description='O método de acesso à página não é permitido.'
     )
 
 
@@ -85,10 +92,22 @@ def register():
         except Exception as e:
             flash(message=str(e), category='danger')
         else:
-            return redirect('/login')
+            # user = User.get_by_username(register_form.username.data)
+            # profile_picture_filename = user.profile_picture_filename
 
-    if request.method == 'POST':
-        return redirect(url_for('register'))
+            # profile_picture = request.files[register_form.profile_picture.name]
+            # profile_picture_type = profile_picture.filename.rsplit('.', 1)[1].lower()
+            #
+            # profile_picture_filename = \
+            #     url_for('static', filename=f'img/user/{register_form.username.data}.{profile_picture_type}')
+            #
+            # profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], profile_picture_filename))
+            # profile_picture.close()
+
+            return redirect(url_for('login'))
+
+    # if request.method == 'POST':
+    #     return redirect(url_for('register'))
 
     return render_template('register-user.html', form=register_form)
 
@@ -166,8 +185,8 @@ def delete_timegram(timegram_id: int):
         abort(403)
 
 
-@app.route('/timegram_datetime_can_open/<int:timegram_id>')
-@app.route('/timegram_datetime_can_open/<int:timegram_id>/')
+@app.route('/timegram_datetime_can_open/<int:timegram_id>', methods=['POST'])
+@app.route('/timegram_datetime_can_open/<int:timegram_id>/', methods=['POST'])
 @login_required
 def timegram_datetime_can_open(timegram_id: int):
     if current_user.has_timegram_id(timegram_id):
@@ -194,7 +213,7 @@ def user_profile(username: str):
             return redirect(url_for('user_profile', username=current_user.username))
 
         return render_template(
-            'edit_user_profile.html',
+            'user_profile.html',
             form=edit_user_form,
             user=current_user,
             current_user_username=current_user.username,
@@ -204,22 +223,18 @@ def user_profile(username: str):
         abort(403)
 
 
-@app.route('/delete_user/<int:user_id>', methods=['GET', 'POST'])
-@app.route('/delete_user/<int:user_id>/', methods=['GET', 'POST'])
+@app.route('/delete_user/<int:user_id>', methods=['DELETE'])
+@app.route('/delete_user/<int:user_id>/', methods=['DELETE'])
 @login_required
 def delete_user(user_id: int):
     if current_user.id == user_id:
         current_user.delete()
+        print('I\'m here!')
 
+        flash('O usuário foi deletado com sucesso.', category='success')
         return redirect(url_for('login'))
     else:
         abort(403)
-
-
-@app.route('/request_test', methods=['GET', 'POST'])
-def request_test():
-    print(request)
-    return redirect(url_for('dashboard'))
 
 
 @app.route('/search_user', methods=['GET', 'POST'])

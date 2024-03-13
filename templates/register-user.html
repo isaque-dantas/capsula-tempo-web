@@ -2,16 +2,20 @@
 
 {% block title %}Cadastro{% endblock %}
 {% block content %}
-    <section class="container cadastrar pt-5 gap-1">
+    <section class="container cadastrar py-5 gap-1">
         {% include 'flash_messages.html' %}
 
         <h2 class="text-primary fw-bold">Fazer cadastro</h2>
         <hr class="mb-4">
-        <form method="POST" action="/register" class="d-flex flex-column gap-4">
+        <form method="POST" action="/register" enctype="multipart/form-data" class="d-flex flex-column gap-4">
             {{ form.hidden_tag() }}
             <div>
                 {{ form.username.label(class="form-label fw-medium") }}
                 {{ form.username(class="form-control") }}
+            </div>
+            <div>
+                {{ form.profile_picture.label(class="form-label fw-medium") }}
+                {{ form.profile_picture(class="form-control") }}
             </div>
             <div>
                 {{ form.first_name.label(class="form-label fw-medium") }}

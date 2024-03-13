@@ -28,7 +28,7 @@ body {
 
 nav.navbar {
     padding: 8px 0 8px 0;
-    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
 }
 
 nav.navbar a.navbar-brand > img {
@@ -103,7 +103,7 @@ h2 > em.timegram::after {
 
 body > section.login,
 body > section.cadastrar,
-body > section.escrever-timegram {
+body > section.write-timegram {
     max-width: 696px;
 }
 
@@ -114,10 +114,6 @@ body > section.escrever-timegram {
 
 #home > section > .container > h2.text-primary {
     margin-bottom: 56px;
-}
-
-#home > section.hero .login-link {
-
 }
 
 #home > section.hero p {
@@ -140,10 +136,6 @@ body > section.escrever-timegram {
 #home > section.what-can-do .timegram-function {
     padding: 48px 24px;
     border: 4px dashed #FDCA40;
-}
-
-#home > section.why .accordion {
-    /*min-width: 544px;*/
 }
 
 #home > section.why .accordion {
@@ -190,25 +182,25 @@ body > section.escrever-timegram {
     }
 }
 
-section.datetime-restante-timegram hr {
+section.datetime-left-timegram hr {
     border-color: #8f8f8f;
     width: 100%;
 }
 
-section.escrever-timegram div.input-group.date {
+section.write-timegram div.input-group.date {
     max-width: 200px;
 }
 
-section.escrever-timegram textarea#timegramInputConteudo {
+section.write-timegram textarea#contentInput {
     min-height: 160px;
     max-height: 400px;
 }
 
-section.datetime-restante-timegram .date-restante-timegram > p {
+section.datetime-left-timegram .date-left-timegram > p {
     font-size: 48px;
 }
 
-section.datetime-restante-timegram .time-restante-timegram {
+section.datetime-left-timegram .time-left-timegram {
     font-size: 72px;
 }
 
@@ -242,15 +234,15 @@ section.timegram .toolbar .button-logo {
     height: auto;
 }
 
-section.timegram .tempo-restante {
+section.timegram .tempo-left {
     margin-top: 96px;
 }
 
-section.timegram .tempo-restante .tempo-restante-ano-mes-dia {
+section.timegram .tempo-left .tempo-left-ano-mes-dia {
     font-size: 44px;
 }
 
-section.timegram .tempo-restante .tempo-restante-hora-minuto-segundo {
+section.timegram .tempo-left .tempo-left-hora-minuto-segundo {
     font-size: 52px;
 }
 

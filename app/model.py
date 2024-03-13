@@ -47,13 +47,37 @@ class User(db.Model, UserMixin):
             integrity_error_message = User.generate_integrity_error_message(already_registered_form_attributes)
             raise IntegrityError(integrity_error_message)
 
+        print(form.profile_picture.data)
+
+        if not User.__is_profile_picture_content_type_valid(form.profile_picture):
+            raise ValueError('Imagem inválida. Você pode escolher imagens dos tipos '
+                             '\'.png\', \'.jpg\', \'.jpeg\', \'.webp\' e outras.')
+
         user = User(username=form.username.data,
                     email=form.email.data,
                     first_name=form.first_name.data,
                     last_name=form.last_name.data,
                     password=form.password.data)
-        db.session.add(user)
-        db.session.commit()
+        # db.session.add(user)
+        # db.session.commit()
+
+    @staticmethod
+    def __is_profile_picture_content_type_valid(profile_picture) -> bool:
+        content_type = profile_picture.data.content_type
+        print(content_type)
+        if 'image' not in content_type:
+            print('not valid #1')
+            return False
+
+        filename = profile_picture.data.filename
+        non_permitted_chars = ['/', '\\']
+
+        for char in filename:
+            if char in non_permitted_chars:
+                print('not valid #2')
+                return False
+
+        return True
 
     @staticmethod
     def get_already_registered_form_attributes(username: str, email: str) -> list:

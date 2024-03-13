@@ -1,49 +1,102 @@
 {% extends 'base-without-login.html' %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Timegram // @{{ user.username }}{% endblock %}
 {% block content %}
-    <section class="user-profile container pt-5">
-        <div class="row">
+    <section class="user-profile container pt-5" id="container">
+        {% include 'flash_messages.html' %}
+
+        <form method="POST" action="{{ url_for('user_profile', username=current_user_username) }}"
+              class="row row-gap-5">
+            {{ form.hidden_tag() }}
             <div class="col-3">
                 <div class="card p-4 shadow">
                     <figure>
                         <img src="{{ url_for('static', filename='img/author-profile-picture.png') }}" alt=""
                              class="img-fluid">
                     </figure>
-                    <h5 class="fw-normal">@{{ user.username }}</h5>
-                    <h4 class="text-primary fw-semibold">{{ user.first_name }} {{ user.last_name }}</h4>
+
+                    {{ form.username(class="edit-user-form-input fw-normal fs-5", value=user.username) }}
+                    {{ form.name(class="edit-user-form-input text-primary fw-semibold fs-4", value="{} {}".format(user.first_name, user.last_name)) }}
                 </div>
             </div>
+
             <div class="col-8 ms-5">
                 <div class="d-flex flex-column gap-5">
                     <div class="d-flex gap-3 align-items-center">
                         <h2 class="text-primary fw-semibold m-0">Dados do perfil</h2>
-                        <a href="{{ url_for('edit_user') }}"
-                           class="button-edit btn btn-outline-primary d-flex justify-content-center align-items-center">
+                        <button type="button" onclick="enableForm()"
+                                class="button-edit btn btn-outline-primary d-flex justify-content-center align-items-center">
                             <img src="{{ url_for('static', filename='img/edit.svg') }}" alt="" class="button-logo">
-                        </a>
+                        </button>
                     </div>
                     <ul class="list-group shadow w-100">
                         <li class="list-group-item py-3 fs-5">
-                            <p class="m-0 d-inline-block text-primary fw-semibold ms-2 me-4 data-label">E-mail</p>
-                            <p class="m-0 d-inline-block text-body-secondary fw-normal">{{ user.email }}</p>
+                            {{ form.email.label(class="m-0 text-primary fw-semibold data-label ms-2 me-4 d-inline-block") }}
+                            {{ form.email(class="edit-user-form-input m-0 text-body-secondary fw-normal d-inline-block", value=user.email) }}
                         </li>
                         <li class="list-group-item py-3 fs-5">
-                            <p class="m-0 d-inline-block text-primary fw-semibold ms-2 me-4 data-label">Cidade</p>
-                            <p class="m-0 d-inline-block text-body-secondary fw-normal">{{ user.first_name }} {{ user.last_name }}</p>
+                            <p class="m-0 text-primary fw-semibold ms-2 me-4 data-label d-inline-block">Cidade</p>
+                            <p class="m-0 text-body-secondary fw-normal d-inline-block">{{ user.first_name }} {{ user.last_name }}</p>
                         </li>
                         <li class="list-group-item py-3 fs-5">
-                            <p class="m-0 d-inline-block text-primary fw-semibold ms-2 me-4 data-label">UF</p>
-                            <p class="m-0 d-inline-block text-body-secondary fw-normal">Rio Grande do Norte</p>
+                            <p class="m-0 text-primary fw-semibold ms-2 me-4 data-label d-inline-block">UF</p>
+                            <p class="m-0 text-body-secondary fw-normal d-inline-block">Rio Grande do Norte</p>
                         </li>
                         <li class="list-group-item py-3 fs-5">
-                            <p class="m-0 d-inline-block text-primary fw-semibold ms-2 me-4 data-label">Nascimento</p>
-                            <p class="m-0 d-inline-block text-body-secondary fw-normal">14/03/2007</p>
+                            <p class="m-0 text-primary fw-semibold ms-2 me-4 data-label d-inline-block">Nascimento</p>
+                            <p class="m-0 text-body-secondary fw-normal d-inline-block">14/03/2007</p>
                         </li>
                     </ul>
                 </div>
             </div>
-        </div>
+
+            <div class="col-3">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#excludeUser{{ user.id }}"
+                        class="w-100 btn btn-outline-danger border-2 py-2 px-3 d-flex gap-2 justify-content-center align-items-center">
+                    <img src="{{ url_for('static', filename='img/trash-2.svg') }}" alt="" class="button-logo">
+                    <span class="fs-5 fw-semibold m-0">Excluir conta</span>
+                </button>
+            </div>
+
+            <div class="col-8">
+                <div id="form-button-container">
+                    <div class="ms-5 w-100 d-flex">
+                        <button type="button" onclick="unableForm()"
+                                class="btn btn-outline-secondary px-5 fw-semibold border-2 form-button">Cancelar
+                        </button>
+                        {{ form.submit(class="btn btn-outline-primary fw-bold ms-4 border-2 px-5 form-button") }}
+                    </div>
+                </div>
+            </div>
+
+        </form>
     </section>
+
+    <div class="modal fade" id="excludeUser{{ user.id }}" tabindex="-1"
+         aria-labelledby="excludeMessage" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 fw-bold text-primary" id="exampleModalLabel">Confirmar
+                        exclusão</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Realmente deseja excluir sua conta?</div>
+                <div class="modal-footer gap-1">
+                    <button type="button" class="fw-bold btn btn-outline-primary" data-bs-dismiss="modal">Cancelar</button>
+                    <button onclick="deleteUser({{ user.id }})"
+                       class="btn btn-outline-danger px-3 d-flex gap-2 align-items-center">
+                        <img style="width: 20px; height: auto"
+                             src="{{ url_for('static', filename='img/trash-2.svg') }}" alt=""
+                             class="button-logo">
+                        <span class="fw-semibold m-0">Excluir</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="{{ url_for('static', filename='js/calculate-table-elements-width.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/manage-edit-user-form.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/delete-user.js') }}"></script>
 {% endblock %}

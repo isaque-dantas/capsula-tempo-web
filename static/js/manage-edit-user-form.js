@@ -1,4 +1,4 @@
-const textInputs = getTextInputs()
+const textInputs = getEditUserFormInputs()
 const labels = document.getElementsByTagName("label")
 const formButtonContainer = document.getElementById("form-button-container")
 
@@ -7,8 +7,8 @@ const initialLabelsForProperties = getLabelsForProperties(labels)
 unableForm()
 formButtonContainer.style.visibility = 'visible'
 
-function getTextInputs() {
-    const inputs = document.getElementsByTagName("input")
+function getEditUserFormInputs() {
+    const inputs = document.getElementsByClassName('edit-user-form-input')
     let textInputs = []
 
     for (let i=0; i<inputs.length; i++) {

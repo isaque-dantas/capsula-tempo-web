@@ -7,8 +7,8 @@
 {% block content %}
     <section style="margin-top: 144px" class="d-flex flex-column align-items-center">
         <div class="mw-50">
-            <h1 class="text-primary fw-bold mb-4 text-center display-1">Erro 404</h1>
-            <p class="mb-3 fw-medium fs-4 text-center">A página que você tentou acessar não foi encontrada.</p>
+            <h1 class="text-primary fw-bold mb-4 text-center display-1">Erro {{ error_code }}</h1>
+            <p class="mb-3 fw-medium fs-4 text-center">{{ error_description }}</p>
             <p class="fs-5 text-center">Se você inseriu a URL manualmente, verifique a ortografia e tente novamente.</p>
         </div>
     </section>

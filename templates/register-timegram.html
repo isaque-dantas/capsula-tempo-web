@@ -2,10 +2,10 @@
 
 {% block title %}Escrever timegram{% endblock %}
 {% block content %}
-    <section class="container escrever-timegram py-5 gap-1">
+    <section class="container write-timegram py-5 gap-1">
         {% include 'flash_messages.html' %}
 
-        <h2 class="text-primary fw-bold">Escreva sua timegram</h2>
+        <h2 class="text-primary fw-bold">Escreva seu timegram</h2>
         <hr class="mb-4">
         <form action="/register_timegram" method="POST" class="d-flex flex-column gap-4">
             {{ form.hidden_tag() }}

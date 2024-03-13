@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, EmailField, PasswordField, DateField, TimeField, TextAreaField
+from wtforms import StringField, SubmitField, EmailField, PasswordField, DateField, TimeField, TextAreaField, FileField
 from wtforms.validators import DataRequired, Length
 
 from app.model import User, Timegram
@@ -35,6 +35,11 @@ class RegisterForm(FlaskForm):
                            Length(max=User.MAX_LENGTH['email']),
                        ])
 
+    profile_picture = FileField('Sua imagem',
+                                validators=[
+                                    DataRequired()
+                                ])
+
     submit = SubmitField('Confirmar')
 
 
@@ -54,8 +59,6 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Confirmar')
 
 
-# TODO: validar que data e hora são um momento posterior ao atual em TimegramForm
-
 class TimegramForm(FlaskForm):
     title = StringField('Título',
                         validators=[
@@ -68,7 +71,7 @@ class TimegramForm(FlaskForm):
                                 DataRequired()
                             ])
 
-    date_can_open = DateField('O dia e o horário em que a timegram será liberada',
+    date_can_open = DateField('O dia e o horário em que o timegram será liberada',
                               validators=[
                                   DataRequired()
                               ])
